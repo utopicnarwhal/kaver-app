@@ -1,12 +1,13 @@
 import graphql, { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
+import { resolve } from "url";
 
 const selectionType = new GraphQLObjectType({
+    name: "cover",
     fields: () => ({
         id: {
             type: GraphQLString
         }
-    }),
-    name: "cover",
+    })
 });
 
 const RootQuery = new GraphQLObjectType({
@@ -14,7 +15,10 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         cover: {
             type: selectionType,
-            args: { id: { type: GraphQLString } }
+            args: { id: { type: GraphQLString } },
+            resolve() {
+                return {id: "asdf"};
+            }
         }
     }
 });
