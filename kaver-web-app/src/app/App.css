@@ -1,22 +1,77 @@
-html {
-  height: 100%;
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
 }
 
-body {
-  margin: 0 !important;
-  height: 100%;
-  font-family: Comfotraa, 'Helvetica Neue', sans-serif;
+.App-header {
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
-[hidden] {
-  display: none !important;
+.App-header .Logo-block {
+  background-color: #27AE60;
+  box-shadow: 0 1px 2px #00000033;
+  width: 255px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
-a {
-  text-decoration: none !important;
-  color: inherit;
+.App-header .Logo-block:hover {
+  box-shadow: 0 2px 4px #000000aa;
 }
 
-* {
-  box-sizing: border-box;
+.App-header .Logo-block .App-logo {
+  height: 80%;
+  padding: 5px;
+}
+
+.App-header .Logo-block .App-logo-text {
+  font-size: 44px;
+  padding-top: 16px;
+  font-weight: bold;
+}
+
+.App-header .Login-block {
+  background-color: #333;
+  box-shadow: 0 1px 2px #00000033;
+  width: 255px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.App-header .Login-block:hover {
+  box-shadow: 0 2px 4px #000000aa;
+}
+
+.App-header .Login-block .App-login-text {
+  font-size: 44px;
+  font-weight: bold;
+  color: #fcfcfc;
+}
+
+.App-footer {
+  width: 100%;
+  background-color: #444;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 4px #000000aa;
+  color: #fcfcfc;
 }
