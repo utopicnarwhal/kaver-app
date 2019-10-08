@@ -42,6 +42,28 @@
   font-weight: bold;
 }
 
+.App-header .Search-block {
+  background-color: #fcfcfc;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 100%;
+  width: 24%;
+  cursor: pointer;
+  box-shadow: 0 1px 2px #00000033;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+}
+
+.App-header .Search-block:hover {
+  box-shadow: 0 2px 4px #000000aa;
+}
+
+.App-header .Search-block .Search-icon {
+  color: #333;
+}
+
 .App-header .Login-block {
   background-color: #333;
   box-shadow: 0 1px 2px #00000033;
@@ -65,7 +87,7 @@
   color: #fcfcfc;
 }
 
-.App-footer {
+/* .App-footer {
   width: 100%;
   background-color: #444;
   height: 60px;
@@ -74,4 +96,4 @@
   align-items: center;
   box-shadow: 0 0 4px #000000aa;
   color: #fcfcfc;
-}
+} */
