@@ -3,7 +3,7 @@ import logo from '../kaver-logo.svg';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { TextField } from '@material-ui/core';
+import { TextField, Card, CardActions, CardContent, Button, Typography, Theme } from '@material-ui/core';
 
 const App: React.FC = () => {
   return (
@@ -22,7 +22,13 @@ const App: React.FC = () => {
         </div>
       </header>
       <div id="main">
-        <div className="Card"></div>
+        <Card>
+          <CardContent>
+            <Typography color="textSecondary" gutterBottom>
+              Александра Негрескул
+            </Typography>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
