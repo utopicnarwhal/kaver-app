@@ -1,5 +1,13 @@
+:root {
+  --material-green: #27AE60;
+  --desktop-header-height: 80px;
+  --whitesmoke-color: #F5F5F5;
+  --gray-13-color: #212121;
+}
+
 html {
   height: 100%;
+  background-color: var(--whitesmoke-color);
 }
 
 body {

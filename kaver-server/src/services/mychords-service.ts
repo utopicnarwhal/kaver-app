@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import HTMLParser, { NodeType, parse } from "node-html-parser";
-import { ISinger } from "../models/singer";
-import { ISong } from "../models/song";
+import Singer, { ISinger } from "../models/singer";
+import Song, { ISong } from "../models/song";
 
 export enum SingersTypes {
     Our,
@@ -11,6 +11,41 @@ export enum SingersTypes {
 const myChordsUrl = "https://mychords.net";
 
 export default class MyChordsService {
+    public static async fetchData() {
+        const singers = Array<ISinger>();
+
+        const ourSingers = await MyChordsService.retrieveAllSingersByType(SingersTypes.Our);
+        if (ourSingers != null) {
+            singers.push(...ourSingers);
+        }
+        console.log(`our singers: ${ourSingers.length}`);
+
+        const foreignSingers = await MyChordsService.retrieveAllSingersByType(SingersTypes.Foreign);
+        if (foreignSingers != null) {
+            singers.push(...foreignSingers);
+        }
+        console.log(`foreign singers: ${foreignSingers.length}`);
+
+        for (let i = 0; i < singers.length; ++i) {
+            singers[i] = await Singer.create(singers[i]);
+
+            console.log(`singer: ${singers[i]} saved`);
+            const singerSongs = await MyChordsService.retrieveAllSongsBySinger(singers[i]);
+            if (singerSongs == null || singerSongs.length < 1) {
+                console.log(`no songs`);
+            } else {
+                console.log(`number of songs: ${singerSongs.length}`);
+            }
+
+            for (let j = 0; j < singerSongs.length; ++j) {
+                singerSongs[j].chordsAndText = await MyChordsService.retrieveSongText(singerSongs[j].href);
+                singerSongs[j] = await Song.create(singerSongs[j]);
+                console.log(`song: ${singerSongs[j]} saved`);
+            }
+        }
+        console.log("completed");
+    }
+
     public static async retrieveAllSingersByType(type: SingersTypes): Promise<ISinger[]> {
         let typeStringUrl = "";
         switch (type) {

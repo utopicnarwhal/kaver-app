@@ -21,38 +21,7 @@ mongoose.connect(`mongodb+srv://${Environment.login}:${Environment.password}@kav
 mongoose.connection.once("open", async () => {
     console.log("connected to database");
 
-    const singers = Array<ISinger>();
-
-    const ourSingers = await MyChordsService.retrieveAllSingersByType(SingersTypes.Our);
-    if (ourSingers != null) {
-        singers.push(...ourSingers);
-    }
-    console.log(`our singers: ${ourSingers.length}`);
-
-    const foreignSingers = await MyChordsService.retrieveAllSingersByType(SingersTypes.Foreign);
-    if (foreignSingers != null) {
-        singers.push(...foreignSingers);
-    }
-    console.log(`foreign singers: ${foreignSingers.length}`);
-
-    for (let i = 0; i < singers.length; ++i) {
-        singers[i] = await Singer.create(singers[i]);
-
-        console.log(`singer: ${singers[i]} saved`);
-        const singerSongs = await MyChordsService.retrieveAllSongsBySinger(singers[i]);
-        if (singerSongs == null || singerSongs.length < 1) {
-            console.log(`no songs`);
-        } else {
-            console.log(`number of songs: ${singerSongs.length}`);
-        }
-
-        for (let j = 0; j < singerSongs.length; ++j) {
-            singerSongs[j].chordsAndText = await MyChordsService.retrieveSongText(singerSongs[j].href);
-            singerSongs[j] = await Song.create(singerSongs[j]);
-            console.log(`song: ${singerSongs[j]} saved`);
-        }
-    }
-    console.log("completed");
+    
 });
 
 app.use("/graphql", graphqlHTTP({

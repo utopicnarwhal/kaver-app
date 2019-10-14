@@ -2,33 +2,45 @@ import React from 'react';
 import logo from '../kaver-logo.svg';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { TextField, Card, CardActions, CardContent, Button, Typography, Theme } from '@material-ui/core';
+import { faSearch, faSignInAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { TextField, Card, CardContent, Typography, Fab } from '@material-ui/core';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="Left-block-placeholder"></div>
         <div className="Logo-block">
           <img src={logo} className="App-logo" alt="Логотип" />
           <span className="App-logo-text">KAVER</span>
         </div>
-        <div className="Search-block">
-          <TextField id="time" type="text"/>
-          <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon"/>
-        </div>
         <div className="Login-block">
-          <span className="App-login-text">Log in</span>
+          <FontAwesomeIcon icon={faSignInAlt} size="3x" className="Sign-in-icon" />
         </div>
       </header>
       <div id="main">
-        <Card>
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Александра Негрескул
+        <div className="Favorites-block">
+          <h1>Favorites Kavers</h1>
+        </div>
+        <div className="Center-block">
+          <div className="Search-block">
+            <TextField id="time" type="text" />
+            <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
+          </div>
+        </div>
+        <div className="My-kavers-block">
+          <h1>My Kavers</h1>
+          <Card>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                Александра Негрескул
             </Typography>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
+        <Fab className="Add-song-fab">
+          <FontAwesomeIcon icon={faPlus} size="3x" className="Add-song-icon" />
+        </Fab>
       </div>
     </div>
   );
