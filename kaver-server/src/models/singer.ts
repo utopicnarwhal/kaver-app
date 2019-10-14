@@ -1,6 +1,13 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-export default const singerSchema = new Schema({
-    name: String,
-    age: Number
+export interface ISinger extends Document {
+    name: string;
+    href: string;
+}
+
+const SingerShema: Schema = new Schema({
+    name: { type: String, required: true, unique: false },
+    href: { type: String, required: true, unique: false },
 });
+
+export default mongoose.model<ISinger>("Singer", SingerShema);
