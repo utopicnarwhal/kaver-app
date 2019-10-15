@@ -3,7 +3,9 @@ import logo from '../kaver-logo.svg';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSignInAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { TextField, Card, CardContent, Typography, Fab } from '@material-ui/core';
+import { TextField, Card, CardContent, Typography, Fab, Drawer } from '@material-ui/core';
+
+var isDrawerOpen = true;
 
 const App: React.FC = () => {
   return (
@@ -34,13 +36,16 @@ const App: React.FC = () => {
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
                 Александра Негрескул
-            </Typography>
+              </Typography>
             </CardContent>
           </Card>
         </div>
         <Fab className="Add-song-fab">
           <FontAwesomeIcon icon={faPlus} size="3x" className="Add-song-icon" />
         </Fab>
+        <Drawer anchor={'right'} open={isDrawerOpen} onClose={() => isDrawerOpen = false}>
+          <h1>Title</h1>
+        </Drawer>
       </div>
     </div>
   );
