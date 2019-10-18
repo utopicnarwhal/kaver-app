@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.8",
+    "graphql-yoga": "^1.18.3",
     "mongoose": "^5.7.3",
     "node-html-parser": "^1.1.16",
     "reflect-metadata": "^0.1.13",
