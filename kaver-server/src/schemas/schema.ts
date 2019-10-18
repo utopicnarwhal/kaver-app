@@ -1,28 +1,15 @@
-import graphql, { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
-import { resolve } from "url";
+import { Field, Int, ObjectType } from "type-graphql";
+import Singer from "../models/singer";
+import Song from "../models/song";
 
-const selectionType = new GraphQLObjectType({
-    name: "cover",
-    fields: () => ({
-        id: {
-            type: GraphQLString
-        }
-    })
-});
+@ObjectType()
+export default class SongType {
+    @Field((type) => Int)
+    public id: number;
 
-const RootQuery = new GraphQLObjectType({
-    name: "RootQueryType",
-    fields: {
-        cover: {
-            type: selectionType,
-            args: { id: { type: GraphQLString } },
-            resolve() {
-                return {id: "asdf"};
-            }
-        }
-    }
-});
+    @Field()
+    public name: string;
 
-export default new GraphQLSchema({
-    query: RootQuery
-});
+    @Field((type) => String)
+    public singerId: string;
+}

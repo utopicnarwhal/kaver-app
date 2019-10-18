@@ -1,16 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import express from "express";
-import graphqlHTTP from "express-graphql";
+import { GraphQLServer } from "graphql-yoga";
 import mongoose from "mongoose";
+import { buildSchema } from "type-graphql";
 import Environment from "./environment";
-import Singer, { ISinger } from "./models/singer";
-import Song from "./models/song";
-import schema from "./schema/schema";
-import MyChordsService, { SingersTypes } from "./services/mychords-service";
-
-const port = 4000;
-
-const app = express();
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -20,15 +11,19 @@ mongoose.set("useUnifiedTopology", true);
 mongoose.connect(`mongodb+srv://${Environment.login}:${Environment.password}@kaver-claster-afbfy.gcp.mongodb.net/kaver-db?retryWrites=true&w=majority`);
 mongoose.connection.once("open", async () => {
     console.log("connected to database");
-
-    
 });
 
-app.use("/graphql", graphqlHTTP({
-    schema,
-    graphiql: true,
-}));
+async function bootstrap() {
+    const schema = await buildSchema({
+        resolvers: [ProjectResolver, TaskResolver],
+        emitSchemaFile: true,
+    });
 
-app.listen(port, () => {
-    console.log(`now listening for requests on port ${port}`);
-});
+    const server = new GraphQLServer({
+        schema,
+    });
+
+    server.start(() => console.log("Server is running on http://localhost:4000"));
+}
+
+bootstrap();
