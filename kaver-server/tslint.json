@@ -16,7 +16,8 @@
                 "limit": 180,
                 "ignore-pattern": "^import [^,]+ from |^export | implements"
             }
-        ]
+        ],
+        "ordered-imports": false
     },
     "rulesDirectory": []
 }

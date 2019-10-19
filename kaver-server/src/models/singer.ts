@@ -10,4 +10,4 @@ const SingerShema: Schema = new Schema({
     href: { type: String, required: true, unique: false },
 });
 
-export default mongoose.model<ISinger>("Singer", SingerShema);
+export default mongoose.model<ISinger>("Singers", SingerShema);

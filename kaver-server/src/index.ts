@@ -1,7 +1,9 @@
+import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
 import mongoose from "mongoose";
 import { buildSchema } from "type-graphql";
 import Environment from "./environment";
+import Resolves from "./resolvers/resolvers";
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -15,7 +17,7 @@ mongoose.connection.once("open", async () => {
 
 async function bootstrap() {
     const schema = await buildSchema({
-        resolvers: [ProjectResolver, TaskResolver],
+        resolvers: [Resolves],
         emitSchemaFile: true,
     });
 
