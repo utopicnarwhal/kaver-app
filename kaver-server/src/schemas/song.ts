@@ -18,4 +18,3 @@ export default class Song {
     @Field((type) => Singer)
     public singer: Singer;
 }
-    

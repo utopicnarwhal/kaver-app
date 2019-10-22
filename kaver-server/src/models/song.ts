@@ -15,4 +15,4 @@ const SongShema: Schema = new Schema({
     chordsAndText: { type: String, required: false, unique: false, index: false },
 });
 
-export default mongoose.model<ISong>("Songs", SongShema);
+export default mongoose.model<ISong>("SongCollection", SongShema, "songs");

@@ -5,6 +5,7 @@
 
 type Query {
   getSingerByName(name: String!): Singer
+  getSingerSongsByName(name: String!): [Song!]
 }
 
 type Singer {

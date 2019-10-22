@@ -15,6 +15,8 @@ mongoose.connection.once("open", async () => {
     console.log("connected to database");
 });
 
+const port = 4000;
+
 async function bootstrap() {
     const schema = await buildSchema({
         resolvers: [Resolves],
@@ -25,7 +27,10 @@ async function bootstrap() {
         schema,
     });
 
-    server.start(() => console.log("Server is running on http://localhost:4000"));
+    server.start((options) => {
+        options.port = port;
+        console.log(`Server is running on http://localhost:${port}`);
+    });
 }
 
 bootstrap();

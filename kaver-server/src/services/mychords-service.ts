@@ -167,7 +167,8 @@
 //         try {
 //             const response = await axios.get(url, {
 //                 headers: {
-//                     Cookie: "__cfduid=d56cb7cb66320a4deffefbf414ee4e9731570992490; PHPSESSID=n70sjsj69d98hh01cjvmrhe29d; isMobile=0; isMobileOld=0; mfgp=1311795708; _ym_uid=1570992582107518189; _ym_d=1570992582; _ym_isad=1"
+// tslint:disable-next-line: max-line-length
+//                     Cookie: __cfduid=d56cb7cb66320a4deffefbf414ee4e9731570992490; PHPSESSID=n70sjsj69d98hh01cjvmrhe29d; isMobile=0; isMobileOld=0; mfgp=1311795708; _ym_uid=1570992582107518189; _ym_d=1570992582; _ym_isad=1"
 //                 }
 //             } as AxiosRequestConfig);
 //             if (response.status !== 200) {

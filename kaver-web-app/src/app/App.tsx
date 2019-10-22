@@ -1,13 +1,12 @@
 import React from 'react';
-import logo from '../kaver-logo.svg';
+import logo from '../app/content/kaver-logo.svg';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSignInAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { TextField, Card, CardContent, Typography, Fab, Drawer } from '@material-ui/core';
+import { TextField, Card, CardContent, Typography, Fab } from '@material-ui/core';
 
-var isDrawerOpen = true;
 const diff = 3;
-const wavesCount = 10;
+const wavesCount = 10.5;
 
 const App: React.FC = () => {
   let generatedWaveSvgPath = "";
@@ -31,7 +30,7 @@ const App: React.FC = () => {
       </header>
       <div id="main">
         <svg width="100%" height="100%" viewBox="0 0 100 100" className="Background-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" >
-          <g>
+          <g filter="url(#dropshadow)">
             <path d={
               `M 0 0
             L 0 50
@@ -40,21 +39,23 @@ const App: React.FC = () => {
             Z`
             } fill="#27AE60" />
           </g>
-          {/* <defs>
-            <filter id="filter0_d" x="-4" y="-4" width="100%" height="100%" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix" />
-              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-              <feOffset />
-              <feGaussianBlur stdDeviation="2" />
-              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0" />
-              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
-              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+          <defs>
+            <filter id="dropshadow">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
+              <feOffset dx="0" dy="0" result="offsetblur" />
+              <feComponentTransfer>
+                <feFuncA type="linear" slope="0.3" />
+              </feComponentTransfer>
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
             </filter>
-          </defs> */}
+          </defs>
         </svg>
 
         <div className="Favorites-block">
-          <h1>Favorites Kavers</h1>
+          <h1>Favorite Kavers</h1>
         </div>
         <div className="Center-block">
           <div className="Search-block">
