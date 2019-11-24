@@ -1,22 +1,30 @@
-import * as React from "react";
 import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { TextField } from "@material-ui/core";
-import gql from "graphql-tag";
+import { Input } from "@material-ui/core";
+import React, { Component } from "react";
 
-const query = gql`
-{
-    getSingerByName(name: "Пасош") {
-        name
-        href
+export default class Search extends Component<{}, {}> {
+    private myRef: React.RefObject<HTMLInputElement>;
+
+    constructor(props: any) {
+        super(props);
+        this.myRef = React.createRef<HTMLInputElement>();
+    }
+
+    public handleSearchBlockClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        console.log(this.myRef.current);
+        event.preventDefault();
+        if (this.myRef.current != null) {
+            this.myRef.current.focus();
+        }
+    }
+
+    public render() {
+        return (<div className="Search-block" onClick={(event) => this.handleSearchBlockClick(event)}>
+            <Input id="search" type="text" disableUnderline={true} autoFocus={true}
+                placeholder={"Название песни или автора"} fullWidth={true} inputRef={this.myRef} />
+            <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
+        </div>);
     }
 }
-`;
-
-export const Search: React.FC = () => {
-    return (<div className="Search-block">
-        <TextField id="time" type="text" />
-        <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
-    </div>);
-};
