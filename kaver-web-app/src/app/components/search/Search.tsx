@@ -2,29 +2,41 @@ import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "@material-ui/core";
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-export default class Search extends Component<{}, {}> {
-    private myRef: React.RefObject<HTMLInputElement>;
+export default function Search() {
+    const [searchText, setSearchText] = useState("");
+    const [placeholderText, setPlaceholderText] = useState("Название песни или автора");
 
-    constructor(props: any) {
-        super(props);
-        this.myRef = React.createRef<HTMLInputElement>();
-    }
+    const searchInputRef = React.createRef<HTMLInputElement>();
+    const searchFormRef = React.createRef<HTMLFormElement>();
 
-    public handleSearchBlockClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        console.log(this.myRef.current);
+    const handleSearchBlockClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
-        if (this.myRef.current != null) {
-            this.myRef.current.focus();
+        if (searchInputRef.current != null) {
+            searchInputRef.current.focus();
         }
-    }
+    };
 
-    public render() {
-        return (<div className="Search-block" onClick={(event) => this.handleSearchBlockClick(event)}>
-            <Input id="search" type="text" disableUnderline={true} autoFocus={true}
-                placeholder={"Название песни или автора"} fullWidth={true} inputRef={this.myRef} />
-            <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
-        </div>);
-    }
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        console.log(searchText);
+    };
+
+    const handleSearchIconClick = () => {
+        console.log(searchText);
+    };
+
+    return (
+        <div className="Search-block" onClick={(event) => handleSearchBlockClick(event)}>
+            <form onSubmit={(event) => handleSubmit(event)} ref={searchFormRef} className={"Search-form"}>
+                <Input id="search" type="text" disableUnderline={true} autoFocus={true}
+                    onChange={(event) => setSearchText(event.target.value)}
+                    placeholder={placeholderText} fullWidth={true} inputRef={searchInputRef} />
+            </form>
+            <div onClick={() => handleSearchIconClick()}>
+                <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
+            </div>
+        </div>
+    );
 }

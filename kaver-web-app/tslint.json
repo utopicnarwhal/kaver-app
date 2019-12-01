@@ -17,7 +17,9 @@
                 "ignore-pattern": "^import [^,]+ from |^export | implements"
             }
         ],
-        "ordered-imports": false
+        "ordered-imports": false,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     },
     "rulesDirectory": []
 }

@@ -53,7 +53,7 @@
 .App-header .Login-block {
   background-color: #333;
   box-shadow: 0 1px 2px #00000033;
-  color: var(--whitesmoke-color);
+  color: #FEFEFE;
   font-size: 14px;
   width: var(--desktop-header-height);
   display: flex;
@@ -101,23 +101,3 @@
   box-shadow: 0 0 4px #000000aa;
   color: #fcfcfc;
 } */
-
-.Add-song-fab {
-  position: fixed !important;
-  bottom: 20px;
-  right: 20px;
-}
-
-.Background-svg {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.Add-song-fab .Add-song-icon {
-  color: var(--grey-13-color);
-  font-size: 34px;
-}

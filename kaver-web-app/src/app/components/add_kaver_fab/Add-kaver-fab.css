@@ -1,0 +1,10 @@
+.Add-song-fab {
+    position: fixed !important;
+    bottom: 20px;
+    right: 20px;
+}
+
+.Add-song-fab .Add-song-icon {
+    color: var(--grey-26-color);
+    font-size: 34px;
+}
