@@ -39,6 +39,95 @@
             "deprecationReason": null
           },
           {
+            "name": "getRandomSingers",
+            "description": null,
+            "args": [
+              {
+                "name": "size",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                },
+                "defaultValue": "10"
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Singer",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getRandomSongs",
+            "description": null,
+            "args": [
+              {
+                "name": "size",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                },
+                "defaultValue": "10"
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Song",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "getSongById",
+            "description": null,
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Song",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "getSingerSongsByName",
             "description": null,
             "args": [
@@ -95,7 +184,7 @@
         "description": null,
         "fields": [
           {
-            "name": "id",
+            "name": "_id",
             "description": null,
             "args": [],
             "type": {
@@ -103,7 +192,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "ObjectId",
                 "ofType": null
               }
             },
@@ -141,34 +230,20 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "songs",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Song",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "ObjectId",
+        "description": "Mongo object id scalar type",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -188,7 +263,7 @@
         "description": null,
         "fields": [
           {
-            "name": "id",
+            "name": "_id",
             "description": null,
             "args": [],
             "type": {
@@ -196,7 +271,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "ObjectId",
                 "ofType": null
               }
             },
@@ -236,6 +311,22 @@
             "deprecationReason": null
           },
           {
+            "name": "singerId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ObjectId",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "chordsAndText",
             "description": null,
             "args": [],
@@ -245,22 +336,6 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "singer",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Singer",
                 "ofType": null
               }
             },

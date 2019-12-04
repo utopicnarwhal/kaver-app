@@ -28,6 +28,7 @@ async function bootstrap() {
 
     const server = new GraphQLServer({
         schema,
+        context: ({ request, response }) => ({ request, response })
     });
 
     server.start((options) => {

@@ -4,8 +4,9 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "@material-ui/core";
 import React, { useState } from "react";
 import gql from "graphql-tag";
+import { useQuery } from "react-apollo-hooks";
 
-const getRandomData = gql`
+const getRandomDataQuery = gql`
     query{
         getRandomSingers {
             name
@@ -17,6 +18,7 @@ const getRandomData = gql`
 `;
 
 export default function Search() {
+    const {data, loading } = useQuery(getRandomDataQuery);
     const [searchText, setSearchText] = useState("");
     const [placeholderText, setPlaceholderText] = useState("Название песни или автора");
 
