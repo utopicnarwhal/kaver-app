@@ -3,22 +3,27 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""Mongo object id scalar type"""
+scalar ObjectId
+
 type Query {
   getSingerByName(name: String!): Singer
+  getRandomSingers(size: Float = 10): [Singer!]
+  getRandomSongs(size: Float = 10): [Song!]
+  getSongById(id: String!): Song
   getSingerSongsByName(name: String!): [Song!]
 }
 
 type Singer {
-  id: Float!
+  _id: ObjectId!
   name: String!
   href: String!
-  songs: [Song!]!
 }
 
 type Song {
-  id: String!
+  _id: ObjectId!
   title: String!
   href: String!
+  singerId: ObjectId!
   chordsAndText: String!
-  singer: Singer!
 }

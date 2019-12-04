@@ -3,6 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "@material-ui/core";
 import React, { useState } from "react";
+import gql from "graphql-tag";
+
+const getRandomData = gql`
+    query{
+        getRandomSingers {
+            name
+        }
+        getRandomSongs {
+            title
+        }
+    }
+`;
 
 export default function Search() {
     const [searchText, setSearchText] = useState("");

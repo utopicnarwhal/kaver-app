@@ -1,13 +1,21 @@
-import mongoose, { Document, Schema } from "mongoose";
+import { ObjectId } from "mongodb";
+import { modelOptions, getModelForClass, prop } from "@typegoose/typegoose";
+import { ObjectType, Field } from "type-graphql";
 
-export interface ISinger extends Document {
-    name: string;
-    href: string;
+@ObjectType()
+@modelOptions({ schemaOptions: { collection: "singers" } })
+export class Singer {
+    @Field()
+    // tslint:disable-next-line: variable-name
+    public _id?: ObjectId;
+
+    @Field()
+    @prop()
+    public name: string;
+
+    @Field()
+    @prop()
+    public href: string;
 }
 
-const SingerShema: Schema = new Schema({
-    name: { type: String, required: true, unique: false },
-    href: { type: String, required: true, unique: false },
-});
-
-export default mongoose.model<ISinger>("SingerCollection", SingerShema, "singers");
+export default getModelForClass(Singer);

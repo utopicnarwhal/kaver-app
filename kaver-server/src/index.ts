@@ -3,7 +3,9 @@ import { GraphQLServer } from "graphql-yoga";
 import mongoose from "mongoose";
 import { buildSchema } from "type-graphql";
 import Environment from "./environment";
-import Resolves from "./resolvers/resolvers";
+import Resolvers from "./resolvers/resolvers";
+import { ObjectId } from "mongodb";
+import { ObjectIdScalar } from "./schemas/scalars";
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -19,8 +21,9 @@ const port = 4000;
 
 async function bootstrap() {
     const schema = await buildSchema({
-        resolvers: [Resolves],
+        resolvers: [Resolvers],
         emitSchemaFile: true,
+        scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
     });
 
     const server = new GraphQLServer({

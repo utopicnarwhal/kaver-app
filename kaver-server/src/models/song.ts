@@ -1,18 +1,30 @@
-import mongoose, { Document, Schema } from "mongoose";
-import { ISinger } from "./singer";
+import { Singer } from "./singer";
+import { ObjectId } from "mongodb";
+import { modelOptions, prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { Field, ObjectType } from "type-graphql";
 
-export interface ISong extends Document {
-    singerId?: ISinger["_id"];
-    title: string;
-    href: string;
-    chordsAndText?: string;
+@ObjectType()
+@modelOptions({ schemaOptions: { collection: "songs" } })
+export class Song {
+    @Field()
+    // tslint:disable-next-line: variable-name
+    public _id?: ObjectId;
+
+    @prop()
+    @Field()
+    public title: string;
+
+    @Field()
+    @prop()
+    public href: string;
+
+    @Field()
+    @prop()
+    public singerId?: ObjectId;
+
+    @Field()
+    @prop()
+    public chordsAndText?: string;
 }
 
-const SongShema: Schema = new Schema({
-    singerId: { type: Schema.Types.ObjectId, required: false, unique: false },
-    title: { type: String, required: true, unique: false },
-    href: { type: String, required: true, unique: false },
-    chordsAndText: { type: String, required: false, unique: false, index: false },
-});
-
-export default mongoose.model<ISong>("SongCollection", SongShema, "songs");
+export default getModelForClass(Song);
