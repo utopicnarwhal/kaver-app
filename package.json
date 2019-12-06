@@ -1,0 +1,11 @@
+{
+  "name": "kaver-app",
+  "version": "1.0.0",
+  "description": "Kaver is a service that helps people to find a song lyrics and chords",
+  "main": "index.js",
+  "repository": "https://github.com/utopicnarwhal/kaver-app.git",
+  "author": "Сергей Данилов <gigok@bk.ru>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["packages/*"]
+}
