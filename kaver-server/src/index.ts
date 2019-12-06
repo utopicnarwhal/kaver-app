@@ -13,7 +13,8 @@ mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 
 mongoose.connect(
-  `mongodb+srv://${Environment.login}:${Environment.password}@kaver-claster-afbfy.gcp.mongodb.net/kaver-db?retryWrites=true&w=majority`
+  `mongodb+srv://${Environment.login}:${Environment.password}@kaver-claster-afbfy.gcp.mongodb.net/kaver-db?retryWrites=true&w=majority`,
+  (error) => console.log(error)
 );
 mongoose.connection.once("open", async () => {
   console.log("connected to database");
@@ -35,10 +36,6 @@ async function bootstrap() {
 
   server.start((options) => {
     options.port = port;
-    options.cors = {
-      credentials: true,
-      origin: ["http://localhost:3000"] // your frontend url.
-    };
     console.log(`Server is running on http://localhost:${port}`);
   });
 }

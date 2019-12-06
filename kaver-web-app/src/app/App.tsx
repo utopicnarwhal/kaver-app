@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 import logo from "../app/content/kaver-logo.svg";

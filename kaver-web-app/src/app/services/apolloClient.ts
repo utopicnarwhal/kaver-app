@@ -3,7 +3,6 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import produce from "immer";
 
 const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   if (graphQLErrors) {
@@ -23,7 +22,8 @@ const createClient = () => {
   const cache = new InMemoryCache();
 
   const httpLink = new HttpLink({
-    uri: `localhost:4000/graphql`
+    
+    uri: `http://localhost:4000`
   });
 
   const client = new ApolloClient({

@@ -1,8 +1,6 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeOptions } from "@material-ui/core/styles/createMuiTheme";
 import { orange } from "@material-ui/core/colors";
-import { PaletteOptions, PaletteColorOptions } from "@material-ui/core/styles/createPalette";
-import { TypographyOptions } from "@material-ui/core/styles/createTypography";
 import { Color } from "@material-ui/core";
 
 const greenThemePalette = {
