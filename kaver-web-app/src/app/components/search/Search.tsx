@@ -5,9 +5,10 @@ import { Input } from "@material-ui/core";
 import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
+import { RandomData } from "../../models/generated/RandomData";
 
-const getRandomDataQuery = gql`
-    query{
+const RANDOM_DATA_QUERY = gql`
+    query RandomData {
         getRandomSingers {
             name
         }
@@ -18,7 +19,7 @@ const getRandomDataQuery = gql`
 `;
 
 export default function Search() {
-    const {data, loading } = useQuery(getRandomDataQuery);
+    const { data: randomData } = useQuery<RandomData>(RANDOM_DATA_QUERY, { suspend: false });
     const [searchText, setSearchText] = useState("");
     const [placeholderText, setPlaceholderText] = useState("Название песни или автора");
 
@@ -42,11 +43,13 @@ export default function Search() {
     };
 
     return (
+
         <div className="Search-block" onClick={(event) => handleSearchBlockClick(event)}>
             <form onSubmit={(event) => handleSubmit(event)} ref={searchFormRef} className={"Search-form"}>
                 <Input id="search" type="text" disableUnderline={true} autoFocus={true}
                     onChange={(event) => setSearchText(event.target.value)}
-                    placeholder={placeholderText} fullWidth={true} inputRef={searchInputRef} />
+                    placeholder={randomData && randomData.getRandomSongs ? randomData.getRandomSongs[0].title : ""}
+                    fullWidth={true} inputRef={searchInputRef} />
             </form>
             <div onClick={() => handleSearchIconClick()}>
                 <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
