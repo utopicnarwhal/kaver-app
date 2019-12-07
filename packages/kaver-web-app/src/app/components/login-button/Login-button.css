@@ -1,0 +1,18 @@
+.Login-block {
+    background-color: #333;
+    box-shadow: 0 1px 2px #00000033;
+    color: #FEFEFE;
+    font-size: 14px;
+    width: var(--desktop-header-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.App-header .Login-block:hover {
+    box-shadow: 0 2px 4px #000000aa;
+}

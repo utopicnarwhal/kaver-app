@@ -25,25 +25,25 @@ enum PlaceholderDirection {
     backward
 }
 
-interface IState {
+interface IPlaceholderState {
     index: number;
     position: number;
     direction: PlaceholderDirection;
     placeholderText: string;
 }
 
-interface IAction {
+interface IPlaceholderAction {
     randomSongs: RandomData_getRandomSongs[] | null;
 }
 
-const placeholderInitialState: IState = {
+const placeholderInitialState: IPlaceholderState = {
     index: 0,
     position: 0,
     direction: PlaceholderDirection.forward,
     placeholderText: ""
 };
 
-function placeholderReducer(state: IState, action: IAction) {
+function placeholderReducer(state: IPlaceholderState, action: IPlaceholderAction) {
     const newState = { ...state };
 
     if (!action.randomSongs) {
@@ -124,13 +124,13 @@ export default function Search() {
     };
 
     return (
-        <div className="Search-block" onClick={(event) => handleSearchBlockClick(event)}>
-            <form onSubmit={(event) => handleSubmit(event)} ref={searchFormRef} className={"Search-form"}>
+        <div className="Search-block" onClick={handleSearchBlockClick}>
+            <form onSubmit={handleSubmit} ref={searchFormRef} className={"Search-form"}>
                 <Input id="search" type="text" disableUnderline={true} autoFocus={true}
                     onChange={(event) => setSearchText(event.target.value)}
                     placeholder={state.placeholderText} fullWidth={true} inputRef={searchInputRef} />
             </form>
-            <div onClick={() => handleSearchIconClick()}>
+            <div onClick={handleSearchIconClick}>
                 <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
             </div>
         </div>

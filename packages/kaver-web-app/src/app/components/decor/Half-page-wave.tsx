@@ -24,8 +24,10 @@ export const HalfPageWave: React.FC<IProps> = ({ amplitude, waveCount, color }) 
         generatedWaveSvgPath += `Q ${((dx * i) + (dx / 4)).toString()} ${y}, ${((dx * i) + (dx / 2)).toString()} 50
       T ${((dx * i) + dx).toString()} 50 `;
     }
+
     const themePrimaryColor = useTheme().palette.primary.main;
     color = color ? color : themePrimaryColor;
+
     return (<svg width="100%" height="100%" viewBox="0 0 100 100" style={waveSvgStyles} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" >
         <g filter="url(#dropshadow)">
             <path d={
