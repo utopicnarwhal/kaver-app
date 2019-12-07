@@ -3,7 +3,7 @@
     background-color: white;
     border-radius: 50px;
     width: 400px;
-    height: 54px;
+    height: 48px;
     cursor: text;
     box-shadow: 0 1px 2px #00000033;
     display: flex;
@@ -17,9 +17,13 @@
     box-shadow: 0 2px 4px #000000aa;
 }
 
+.Search-block input {
+    padding-right: 9px;
+}
+
 .Search-block .Search-icon {
     color: var(--gray-26-color);
-    font-size: 28px;
+    font-size: 24px;
     cursor: pointer;
 }
 

@@ -7,11 +7,13 @@ import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
 import { RandomData, RandomData_getRandomSongs } from "../../models/generated/RandomData";
 
+const kDelayBeforeTypeRandomData = 1000;
+const kDelayBeforeDeleteRandomData = 2000;
+const kDelayTypingRandomData = 70;
+const kDelayDeletingRandomData = 20;
+
 const RANDOM_DATA_QUERY = gql`
     query RandomData {
-        getRandomSingers {
-            name
-        }
         getRandomSongs {
             title
         }
@@ -85,20 +87,21 @@ export default function Search() {
     };
 
     useEffect(() => {
-        if (searchText.length !== 0 && randomData) {
+        if (searchText.length !== 0 || !randomData) {
             dispatch({ randomSongs: null });
+            return;
         }
 
-        if (randomData && randomData.getRandomSongs && searchText.length === 0) {
+        if (randomData.getRandomSongs && searchText.length === 0) {
             const randomSongs = randomData.getRandomSongs;
 
-            let delay = 70;
+            let delay = kDelayTypingRandomData;
             if (state.position === 0) {
-                delay = 2000;
+                delay = kDelayBeforeTypeRandomData;
             } else if (state.position === randomSongs[state.index].title.length) {
-                delay = 3000;
+                delay = kDelayBeforeDeleteRandomData;
             } else if (state.direction === PlaceholderDirection.backward) {
-                delay = 20;
+                delay = kDelayDeletingRandomData;
             }
 
             const placeholderTimer = setTimeout(() => {
@@ -108,6 +111,7 @@ export default function Search() {
                 clearTimeout(placeholderTimer);
             };
         }
+        return;
     });
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

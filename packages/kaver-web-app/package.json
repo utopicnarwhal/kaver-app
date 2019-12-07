@@ -1,5 +1,5 @@
 {
-  "name": "kaver-web-app",
+  "name": "@utopicnarwhal/kaver-web-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,7 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "@material-ui/core": "^4.7.1",
     "@material-ui/icons": "^4.5.1",
-    "apollo": "^2.21.0",
+    "apollo": "^2.21.1",
     "apollo-boost": "^0.4.4",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
@@ -29,7 +29,7 @@
     "@types/react-dom": "16.9.1",
     "eslint-plugin-react-hooks": "^2.3.0",
     "npm-run-all": "^4.1.5",
-    "typescript": "3.6.3"
+    "typescript": "3.7.3"
   },
   "scripts": {
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",

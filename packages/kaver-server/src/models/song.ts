@@ -1,6 +1,5 @@
-import { Singer } from "./singer";
 import { ObjectId } from "mongodb";
-import { modelOptions, prop, getModelForClass, Ref } from "@typegoose/typegoose";
+import { modelOptions, prop, getModelForClass } from "@typegoose/typegoose";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()

@@ -4,6 +4,7 @@
         "tslint:recommended"
     ],
     "jsRules": {},
+    "plugins": ["react-hooks"],
     "rules": {
         "trailing-comma": [
             false
