@@ -14,15 +14,16 @@ interface IProps {
     amplitude: number;
     waveCount: number;
     color?: string;
+    offsetX?: number;
 }
 
-export const HalfPageWave: React.FC<IProps> = ({ amplitude, waveCount, color }) => {
+export const HalfPageWave: React.FC<IProps> = ({ amplitude, waveCount, color, offsetX = 0 }) => {
     let generatedWaveSvgPath = "";
-    for (let i = 0; i < waveCount; ++i) {
+    for (let i = -1; i < waveCount + 2; ++i) {
         const y = 50 - amplitude;
         const dx = 100 / waveCount;
-        generatedWaveSvgPath += `Q ${((dx * i) + (dx / 4)).toString()} ${y}, ${((dx * i) + (dx / 2)).toString()} 50
-      T ${((dx * i) + dx).toString()} 50 `;
+        generatedWaveSvgPath += `Q ${((dx * i) + (dx / 4) + offsetX).toString()} ${y}, ${((dx * i) + (dx / 2) + offsetX).toString()} 50
+      T ${((dx * i) + dx + offsetX).toString()} 50 `;
     }
 
     const themePrimaryColor = useTheme().palette.primary.main;

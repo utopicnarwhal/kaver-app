@@ -2,7 +2,7 @@ import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "@material-ui/core";
-import React, { useState, useRef, useEffect, useReducer } from "react";
+import React, { useState, useRef, useEffect, useReducer, memo } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
 import { RandomData, RandomData_getRandomSongs } from "../../models/generated/RandomData";
@@ -71,7 +71,7 @@ function placeholderReducer(state: IPlaceholderState, action: IPlaceholderAction
     return newState;
 }
 
-export default function Search() {
+export default memo(() => {
     const { data: randomData } = useQuery<RandomData>(RANDOM_DATA_QUERY, { suspend: false });
     const [searchText, setSearchText] = useState("");
     const [state, dispatch] = useReducer(placeholderReducer, placeholderInitialState);
@@ -135,4 +135,4 @@ export default function Search() {
             </div>
         </div>
     );
-}
+});
