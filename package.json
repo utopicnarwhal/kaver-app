@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "dev": "lerna run dev --stream"
+    "dev": "lerna run dev --stream",
+    "update:version": "lerna version --no-push"
   },
   "devDependencies": {
     "lerna": "^3.19.0"
