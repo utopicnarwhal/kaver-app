@@ -1,34 +1,33 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import "./Home-page.css";
 import { Card, CardContent, Typography } from "@material-ui/core";
-import { HalfPageWave } from "../components/decor/Half-page-wave";
 import Search from "../components/search/Search";
 import AddKaverFAB from "../components/add_kaver_fab/Add-kaver-fab";
 import AppHeader from "../components/app-header/App-header";
+import HalfPageWave from "../components/decor/Half-page-wave";
 
 export default function HomePage() {
-  const [state, setState] = useState(0);
+  const [pageViewNum, setPageViewNum] = useState(0);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setState(state + 0.2);
-    }, 20);
-    return () => {
-      clearTimeout(timer);
-    };
-  });
+  const handleSearchTextChange = (searchText: string) => {
+    if (searchText.length > 0 && pageViewNum !== 1) {
+      setPageViewNum(1);
+    } else if (searchText.length === 0 && pageViewNum !== 0) {
+      setPageViewNum(0);
+    }
+  };
 
   return (
     <Fragment>
       <AppHeader></AppHeader>
       <div id="main">
-        <HalfPageWave amplitude={3} waveCount={10} offsetX={-state % 10}></HalfPageWave>
+        <HalfPageWave amplitude={3} waveCount={10} pageViewNum={pageViewNum}></HalfPageWave>
 
         <div className="Favorites-block">
           <h1>Понравившееся:</h1>
         </div>
         <div className="Center-block">
-          <Search></Search>
+          <Search onSearchTextChange={handleSearchTextChange}></Search>
         </div>
         <div className="My-kavers-block">
           <h1>Мои каверы:</h1>

@@ -6,6 +6,7 @@ import React, { useState, useRef, useEffect, useReducer, memo } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
 import { RandomData, RandomData_getRandomSongs } from "../../models/generated/RandomData";
+import { HorizontalDirection } from "../../models/enums/directions";
 
 const kDelayBeforeTypeRandomData = 1000;
 const kDelayBeforeDeleteRandomData = 2000;
@@ -20,15 +21,10 @@ const RANDOM_DATA_QUERY = gql`
     }
 `;
 
-enum PlaceholderDirection {
-    forward,
-    backward
-}
-
 interface IPlaceholderState {
     index: number;
     position: number;
-    direction: PlaceholderDirection;
+    direction: HorizontalDirection;
     placeholderText: string;
 }
 
@@ -39,7 +35,7 @@ interface IPlaceholderAction {
 const placeholderInitialState: IPlaceholderState = {
     index: 0,
     position: 0,
-    direction: PlaceholderDirection.forward,
+    direction: HorizontalDirection.forward,
     placeholderText: ""
 };
 
@@ -50,7 +46,7 @@ function placeholderReducer(state: IPlaceholderState, action: IPlaceholderAction
         return placeholderInitialState;
     }
 
-    newState.position = newState.position + (newState.direction === PlaceholderDirection.forward ? 1 : -1);
+    newState.position = newState.position + (newState.direction === HorizontalDirection.forward ? 1 : -1);
 
     if (newState.position === 0) {
         if (state.index === action.randomSongs.length - 1) {
@@ -61,9 +57,9 @@ function placeholderReducer(state: IPlaceholderState, action: IPlaceholderAction
     }
 
     if (newState.position === action.randomSongs[newState.index].title.length) {
-        newState.direction = PlaceholderDirection.backward;
+        newState.direction = HorizontalDirection.backward;
     } else if (newState.position === 0) {
-        newState.direction = PlaceholderDirection.forward;
+        newState.direction = HorizontalDirection.forward;
     }
 
     newState.placeholderText = action.randomSongs[newState.index].title.slice(0, newState.position);
@@ -71,10 +67,14 @@ function placeholderReducer(state: IPlaceholderState, action: IPlaceholderAction
     return newState;
 }
 
-export default memo(() => {
+interface ISearchComponentProps {
+    onSearchTextChange: (searchText: string) => void;
+}
+
+export default memo<ISearchComponentProps>((props) => {
     const { data: randomData } = useQuery<RandomData>(RANDOM_DATA_QUERY, { suspend: false });
     const [searchText, setSearchText] = useState("");
-    const [state, dispatch] = useReducer(placeholderReducer, placeholderInitialState);
+    const [placeholderState, placeholderDispatch] = useReducer(placeholderReducer, placeholderInitialState);
 
     const searchInputRef = useRef<HTMLInputElement>(null);
     const searchFormRef = useRef<HTMLFormElement>(null);
@@ -88,7 +88,7 @@ export default memo(() => {
 
     useEffect(() => {
         if (searchText.length !== 0 || !randomData) {
-            dispatch({ randomSongs: null });
+            placeholderDispatch({ randomSongs: null });
             return;
         }
 
@@ -96,16 +96,16 @@ export default memo(() => {
             const randomSongs = randomData.getRandomSongs;
 
             let delay = kDelayTypingRandomData;
-            if (state.position === 0) {
+            if (placeholderState.position === 0) {
                 delay = kDelayBeforeTypeRandomData;
-            } else if (state.position === randomSongs[state.index].title.length) {
+            } else if (placeholderState.position === randomSongs[placeholderState.index].title.length) {
                 delay = kDelayBeforeDeleteRandomData;
-            } else if (state.direction === PlaceholderDirection.backward) {
+            } else if (placeholderState.direction === HorizontalDirection.backward) {
                 delay = kDelayDeletingRandomData;
             }
 
             const placeholderTimer = setTimeout(() => {
-                dispatch({ randomSongs: randomData.getRandomSongs });
+                placeholderDispatch({ randomSongs: randomData.getRandomSongs });
             }, delay);
             return () => {
                 clearTimeout(placeholderTimer);
@@ -123,12 +123,16 @@ export default memo(() => {
         console.log(searchText);
     };
 
+    const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.onSearchTextChange(event.target.value);
+        setSearchText(event.target.value);
+    };
+
     return (
         <div className="Search-block" onClick={handleSearchBlockClick}>
             <form onSubmit={handleSubmit} ref={searchFormRef} className={"Search-form"}>
-                <Input id="search" type="text" disableUnderline={true} autoFocus={true}
-                    onChange={(event) => setSearchText(event.target.value)}
-                    placeholder={state.placeholderText} fullWidth={true} inputRef={searchInputRef} />
+                <Input id="search" type="text" disableUnderline={true} autoFocus={true} onChange={handleSearchTextChange}
+                    placeholder={placeholderState.placeholderText} fullWidth={true} inputRef={searchInputRef} />
             </form>
             <div onClick={handleSearchIconClick}>
                 <FontAwesomeIcon icon={faSearch} size="3x" className="Search-icon" />
