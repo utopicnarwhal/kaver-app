@@ -1,0 +1,15 @@
+#main {
+    min-height: 100vh;
+}
+
+.Center-block {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

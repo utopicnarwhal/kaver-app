@@ -71,7 +71,7 @@ interface ISearchComponentProps {
     onSearchTextChange: (searchText: string) => void;
 }
 
-export default memo<ISearchComponentProps>((props) => {
+export const Search = memo<ISearchComponentProps>((props) => {
     const { data: randomData } = useQuery<RandomData>(RANDOM_DATA_QUERY, { suspend: false });
     const [searchText, setSearchText] = useState("");
     const [placeholderState, placeholderDispatch] = useReducer(placeholderReducer, placeholderInitialState);
