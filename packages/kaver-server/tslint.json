@@ -17,7 +17,8 @@
                 "ignore-pattern": "^import [^,]+ from |^export | implements"
             }
         ],
-        "ordered-imports": false
+        "ordered-imports": false,
+        "align": false
     },
     "rulesDirectory": []
 }

@@ -3,15 +3,22 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Mutation {
+  login(password: String!, username: String!): User
+  register(lastname: String!, firstname: String!, password: String!, username: String!): User
+}
+
 """Mongo object id scalar type"""
 scalar ObjectId
 
 type Query {
+  me: User
   getSingerByName(name: String!): Singer
   getRandomSingers(size: Float = 10): [Singer!]
   getRandomSongs(size: Float = 10): [Song!]
   getSongById(id: String!): Song
   getSingerSongsByName(name: String!): [Song!]
+  favoriteSongs: Song!
 }
 
 type Singer {
@@ -26,4 +33,12 @@ type Song {
   href: String!
   singerId: ObjectId!
   chordsAndText: String!
+}
+
+type User {
+  _id: ObjectId!
+  firstname: String!
+  lastname: String!
+  password: String!
+  username: String!
 }

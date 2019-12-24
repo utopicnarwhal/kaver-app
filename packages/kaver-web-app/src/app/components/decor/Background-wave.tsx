@@ -12,7 +12,8 @@ export const BackgroundWave = React.memo(() => {
     const yMin = 47;
 
     for (let i = 0; i < waveCount; ++i) {
-        generatedWaveSvgPath += `Q ${((dx * i) + (dx / 4)).toFixed()} ${yMin}, ${((dx * i) + (dx / 2)).toFixed()} 50 T ${((dx * i) + dx).toFixed()} 50 `;
+        const stepDx = dx * i;
+        generatedWaveSvgPath += `Q ${stepDx + dx / 4} ${yMin}, ${stepDx + dx / 2} 50 T ${stepDx + dx} 50 `;
     }
 
     const themePrimaryColor = useTheme().palette.primary.main;
