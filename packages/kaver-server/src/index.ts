@@ -6,7 +6,7 @@ import resolvers from "./resolvers/resolvers";
 import { ObjectId } from "mongodb";
 import { ObjectIdScalar } from "./schemas/scalars";
 import { IContext } from "./models/context";
-// import { IContext } from "./models/context";
+import cookieParser from "cookie-parser";
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -41,8 +41,10 @@ async function bootstrap() {
 
   const server = new GraphQLServer({
     schema,
-    context: ({ request, response }) => ({ req: request, res: response } as IContext)
+    context: ({ request, response }) => ({ req: request, res: response } as IContext),
   });
+
+  server.use(cookieParser());
 
   server.start((options) => {
     options.port = port;

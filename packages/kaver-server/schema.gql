@@ -15,10 +15,10 @@ type Query {
   me: User
   getSingerByName(name: String!): Singer
   getRandomSingers(size: Float = 10): [Singer!]
-  getRandomSongs(size: Float = 10): [Song!]
-  getSongById(id: String!): Song
   getSingerSongsByName(name: String!): [Song!]
+  getSongById(id: String!): Song
   favoriteSongs: Song!
+  getRandomSongs(size: Float = 10): [Song!]
 }
 
 type Singer {

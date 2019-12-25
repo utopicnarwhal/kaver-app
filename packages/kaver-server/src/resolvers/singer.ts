@@ -15,16 +15,6 @@ export default class SingerResolvers {
     }
 
     @Query(() => [Song], { nullable: true })
-    public async getRandomSongs(@Arg("size", { defaultValue: 10 }) size: number): Promise<Song[] | null> {
-        return (await SongCollection.aggregate([{ $sample: { size } }]));
-    }
-
-    @Query(() => Song, { nullable: true })
-    public async getSongById(@Arg("id") id: string): Promise<Song | null> {
-        return (await SongCollection.findById(id));
-    }
-
-    @Query(() => [Song], { nullable: true })
     public async getSingerSongsByName(@Arg("name") name: string): Promise<Song[] | null> {
         const singer = await this.getSingerByName(name);
         if (singer == null) {

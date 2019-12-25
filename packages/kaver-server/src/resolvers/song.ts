@@ -1,7 +1,7 @@
 import { Arg, Query, Resolver, UseMiddleware, Ctx } from "type-graphql";
 import SongCollection, { Song } from "../models/song";
 import { isAuth } from "../middleware/isAuth";
-import { Context } from "graphql-yoga/dist/types";
+import { IContext } from "../models/context";
 
 @Resolver()
 export default class SongResolvers {
@@ -12,11 +12,16 @@ export default class SongResolvers {
 
     @Query(() => Song)
     @UseMiddleware(isAuth)
-    public async favoriteSongs(@Ctx() ctx: Context): Promise<Song[] | undefined> {
-        if (!ctx.request.session!.userId) {
-            return undefined;
+    public async favoriteSongs(@Ctx() ctx: IContext): Promise<Song[] | null> {
+        if (!ctx.req) {
+            return null;
         }
 
-        return undefined;
+        return null;
+    }
+
+    @Query(() => [Song], { nullable: true })
+    public async getRandomSongs(@Arg("size", { defaultValue: 10 }) size: number): Promise<Song[] | null> {
+        return (await SongCollection.aggregate([{ $sample: { size } }]));
     }
 }
