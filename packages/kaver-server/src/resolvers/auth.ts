@@ -7,7 +7,7 @@ import { IContext } from "../models/context";
 import { AuthenticationError } from "apollo-server";
 
 @Resolver()
-export default class AuthResolvers {
+export default class AuthResolver {
     @Mutation(() => User, { nullable: true })
     public async login(@Arg("username") username: string, @Arg("password") password: string, @Ctx() ctx: Context): Promise<User | null> {
         const user = await UserCollection.findOne({ username });

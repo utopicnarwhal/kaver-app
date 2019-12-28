@@ -17,8 +17,9 @@ type Query {
   getRandomSingers(size: Float = 10): [Singer!]
   getSingerSongsByName(name: String!): [Song!]
   getSongById(id: String!): Song
-  favoriteSongs: Song!
   getRandomSongs(size: Float = 10): [Song!]
+  favoriteSongs: [Song!]
+  kaveredSongs: [Song!]
 }
 
 type Singer {
@@ -41,4 +42,5 @@ type User {
   lastname: String!
   password: String!
   username: String!
+  favoriteSongs: [Song!]!
 }

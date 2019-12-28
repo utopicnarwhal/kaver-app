@@ -3,7 +3,7 @@ import SingerCollection, { Singer } from "../models/singer";
 import SongCollection, { Song } from "../models/song";
 
 @Resolver()
-export default class SingerResolvers {
+export default class SingerResolver {
     @Query(() => Singer, { nullable: true })
     public async getSingerByName(@Arg("name") name: string): Promise<Singer | null> {
         return (await SingerCollection.findOne({ name }));

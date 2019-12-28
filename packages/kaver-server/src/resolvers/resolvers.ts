@@ -1,9 +1,11 @@
-import AuthResolvers from "./auth";
-import SingerResolvers from "./singer";
-import SongResolvers from "./song";
+import AuthResolver from "./auth";
+import SingerResolver from "./singer";
+import SongResolver from "./song";
+import UserResolver from "./user";
 
 export default [
-    AuthResolvers,
-    SingerResolvers,
-    SongResolvers
+    AuthResolver,
+    SingerResolver,
+    SongResolver,
+    UserResolver
 ];
