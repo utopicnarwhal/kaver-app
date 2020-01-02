@@ -1,5 +1,6 @@
 import React from "react";
-// import { Provider } from "react-redux";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import { ApolloProvider } from "react-apollo";
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 import createClient from "./services/apolloClient";
@@ -13,14 +14,18 @@ export default class App extends React.Component {
   private currentTheme = kaverThemeLight;
 
   public render() {
-    return (<ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>
-        <MuiThemeProvider theme={this.currentTheme}>
-          <div className="App" style={{ backgroundColor: this.currentTheme.palette.background.default }}>
-            <HomePage></HomePage>
-          </div>
-        </MuiThemeProvider>
-      </ApolloHooksProvider>
-    </ApolloProvider>);
+    return (
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            <MuiThemeProvider theme={this.currentTheme}>
+              <div className="App" style={{ backgroundColor: this.currentTheme.palette.background.default }}>
+                <HomePage></HomePage>
+              </div>
+            </MuiThemeProvider>
+          </ApolloHooksProvider>
+        </ApolloProvider>
+      </Provider>
+    );
   }
 }
