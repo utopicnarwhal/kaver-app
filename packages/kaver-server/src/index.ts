@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
 import mongoose from "mongoose";
 import { buildSchema } from "type-graphql";
-import resolvers from "./resolvers/resolvers";
+import resolvers from "./resolvers";
 import { ObjectId } from "mongodb";
 import { ObjectIdScalar } from "./schemas/scalars";
 import { IContext } from "./models/context";

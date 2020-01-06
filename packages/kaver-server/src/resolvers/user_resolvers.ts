@@ -11,7 +11,7 @@ export default class UserResolver {
     @FieldResolver()
     public async favoriteSongs(@Ctx() ctx: IContext): Promise<Song[] | null> {
         // console.log(ctx);
-        if (!ctx.token?.userId) {
+        if (!ctx.token) {
             return null;
         }
 
@@ -19,9 +19,11 @@ export default class UserResolver {
     }
 
     @Query(() => [Song], { nullable: true })
+    @UseMiddleware(isAuth)
+    @FieldResolver()
     public async kaveredSongs(@Ctx() ctx: IContext): Promise<Song[] | null> {
         // console.log(ctx);
-        if (!ctx.token?.userId) {
+        if (!ctx.token) {
             return null;
         }
 

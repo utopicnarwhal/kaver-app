@@ -4,14 +4,15 @@
 # -----------------------------------------------
 
 type Mutation {
-  login(password: String!, username: String!): User
   register(lastname: String!, firstname: String!, password: String!, username: String!): User
+  invalidateTokens: Boolean!
 }
 
 """Mongo object id scalar type"""
 scalar ObjectId
 
 type Query {
+  login(password: String!, username: String!): User
   me: User
   getSingerByName(name: String!): Singer
   getRandomSingers(size: Float = 10): [Singer!]
@@ -43,4 +44,5 @@ type User {
   password: String!
   username: String!
   favoriteSongs: [Song!]!
+  kaveredSongs: [Song!]!
 }

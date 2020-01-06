@@ -21,7 +21,8 @@
             }
         ],
         "ordered-imports": false,
-        "react-hooks-nesting": "error"
+        "react-hooks-nesting": "error",
+        "interface-name": false
     },
     "rulesDirectory": []
 }

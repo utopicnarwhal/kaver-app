@@ -6,28 +6,34 @@ import { Song } from "./song";
 @ObjectType()
 @modelOptions({ schemaOptions: { collection: "users" } })
 export class User {
-    @Field()
-    // tslint:disable-next-line: variable-name
-    public _id?: ObjectId;
+  @Field()
+  // tslint:disable-next-line: variable-name
+  public _id?: ObjectId;
 
-    @Field()
-    @prop()
-    public firstname: string;
+  @Field()
+  @prop()
+  public firstname: string;
 
-    @Field()
-    @prop()
-    public lastname: string;
+  @Field()
+  @prop()
+  public lastname: string;
 
-    @Field()
-    @prop()
-    public password?: string;
+  @Field()
+  @prop()
+  public password?: string;
 
-    @Field()
-    @prop()
-    public username?: string;
+  @Field()
+  @prop()
+  public username?: string;
 
-    @Field(() => [Song])
-    public favoriteSongs?: [Song];
+  @Field(() => [Song])
+  public favoriteSongs?: [Song];
+
+  @Field(() => [Song])
+  public kaveredSongs?: [Song];
+
+  @prop({ default: 0 })
+  public jwtIterationCount: number;
 }
 
 export default getModelForClass(User);

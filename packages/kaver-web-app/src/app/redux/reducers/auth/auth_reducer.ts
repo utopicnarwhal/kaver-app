@@ -1,40 +1,33 @@
-import { ADD_TODO, TOGGLE_TODO } from "./auth_actions";
+import { LOGIN, REGISTER, SIGN_OUT, FETCH_USER_DATA, AuthActionTypes } from "./auth_actions";
 
 const initialState = {
   allIds: [],
   byIds: {}
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: AuthActionTypes) => {
   switch (action.type) {
-    case ADD_TODO: {
-      const { id, content } = action.payload;
+    case LOGIN: {
       return {
-        ...state,
-        allIds: [...state.allIds, id],
-        byIds: {
-          ...state.byIds,
-          [id]: {
-            content,
-            completed: false
-          }
-        }
+        ...state
       };
     }
-    case TOGGLE_TODO: {
-      const { id } = action.payload;
+    case REGISTER: {
       return {
-        ...state,
-        byIds: {
-          ...state.byIds,
-          [id]: {
-            ...state.byIds[id],
-            completed: !state.byIds[id].completed
-          }
-        }
+        ...state
+      };
+    }
+    case SIGN_OUT: {
+      return {
+        ...state
+      };
+    }
+    case FETCH_USER_DATA: {
+      return {
+        ...state
       };
     }
     default:
       return state;
   }
-}
+};
