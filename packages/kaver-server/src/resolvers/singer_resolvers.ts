@@ -17,7 +17,7 @@ export default class SingerResolver {
     @Query(() => [Song], { nullable: true })
     public async getSingerSongsByName(@Arg("name") name: string): Promise<Song[] | null> {
         const singer = await this.getSingerByName(name);
-        if (singer == null) {
+        if (!singer) {
             return [];
         }
         return (await SongCollection.find({ singerId: singer._id }));

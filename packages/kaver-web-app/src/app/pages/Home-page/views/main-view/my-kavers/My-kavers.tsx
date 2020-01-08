@@ -6,7 +6,7 @@ export default function MyKavers() {
     return (
         <div className="My-kavers-block">
             <h1>Мои каверы:</h1>
-            <Card>
+            <Card variant="outlined">
                 <CardContent>
                     <Typography color="textSecondary" gutterBottom>
                         Александра Негрескул

@@ -33,10 +33,23 @@ export const isAuth: MiddlewareFn<IContext> = async (
       accessToken,
       process.env.ACCESS_TOKEN_SECRET as string
     ) as Token;
+
+    const user = await UserCollection.findById(tokenData.userId);
+    if (!user) {
+      throw new AuthenticationError("User doesn't exist");
+    }
+
+    if (
+      !tokenData.jwtIterationCount ||
+      tokenData.jwtIterationCount !== user.jwtIterationCount
+    ) {
+      throw new AuthenticationError("This session has been closed");
+    }
+
     ctx.token = tokenData;
   } catch (e) {
     ctx.res.status(401);
-    throw new AuthenticationError("Invalid token");
+    throw e;
   }
   return next();
 };
@@ -47,13 +60,20 @@ const verifyRefreshToken = async (ctx: IContext, refreshToken: string) => {
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET as string
     ) as Token;
-    ctx.token = tokenData;
 
     const user = await UserCollection.findById(tokenData.userId);
-    if (user == null) {
-      ctx.res.status(401);
+    if (!user) {
       throw new AuthenticationError("User doesn't exist");
     }
+
+    if (
+      !tokenData.jwtIterationCount ||
+      tokenData.jwtIterationCount !== user.jwtIterationCount
+    ) {
+      throw new AuthenticationError("This session has been closed");
+    }
+
+    ctx.token = tokenData;
     const newTokens = AuthUtils.createTokens(user);
     AuthUtils.addTokensToCookies(
       ctx.res,

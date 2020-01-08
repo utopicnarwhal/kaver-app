@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import "./Home-page.css";
 import AddKaverFAB from "../../components/add-kaver-fab/Add-kaver-fab";
 import AppHeader from "../../components/app-header/App-header";
@@ -27,7 +27,7 @@ export default function HomePage() {
   );
 
   return (
-    <Fragment>
+    <>
       <AppHeader></AppHeader>
       <div id="main">
         <PageView pageViewNum={pageViewNum} page1={page1} page2={page2}></PageView>
@@ -36,6 +36,6 @@ export default function HomePage() {
         </div>
         <AddKaverFAB ></AddKaverFAB>
       </div>
-    </Fragment>
+    </>
   );
 }

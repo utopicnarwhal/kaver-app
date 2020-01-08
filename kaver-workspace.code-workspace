@@ -1,13 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/node_modules": true
-		},
-		"terminal.integrated.splitCwd": "workspaceRoot"
-	}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true
+    },
+    "terminal.integrated.splitCwd": "workspaceRoot",
+  }
 }

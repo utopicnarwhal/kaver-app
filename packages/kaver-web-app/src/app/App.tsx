@@ -1,31 +1,31 @@
 import React from "react";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import configureStore from "./redux/store";
 import { ApolloProvider } from "react-apollo";
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
-import createClient from "./services/apolloClient";
 import { kaverThemeLight } from "../content/theme";
 import HomePage from "./pages/Home-page/Home-page";
 import { MuiThemeProvider } from "@material-ui/core";
-
-const client = createClient();
+import ApiClient from "./services/api_client";
 
 export default class App extends React.Component {
   private currentTheme = kaverThemeLight;
+  private store = configureStore();
+  private apiClient = ApiClient.getInstance();
 
   public render() {
     return (
-      <Provider store={store}>
-        <ApolloProvider client={client}>
-          <ApolloHooksProvider client={client}>
+      <ApolloProvider client={this.apiClient}>
+        <ApolloHooksProvider client={this.apiClient}>
+          <Provider store={this.store}>
             <MuiThemeProvider theme={this.currentTheme}>
               <div className="App" style={{ backgroundColor: this.currentTheme.palette.background.default }}>
                 <HomePage></HomePage>
               </div>
             </MuiThemeProvider>
-          </ApolloHooksProvider>
-        </ApolloProvider>
-      </Provider>
+          </Provider>
+        </ApolloHooksProvider>
+      </ApolloProvider>
     );
   }
 }

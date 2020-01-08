@@ -29,7 +29,7 @@ export const kaverThemeLight = createMuiTheme({
             main: greenThemePalette[600],
         },
         background: {
-            default: "FEFEFE",
+            default: "#F8F8F8",
         }
     },
     typography: {

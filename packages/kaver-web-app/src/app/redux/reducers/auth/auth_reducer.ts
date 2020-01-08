@@ -1,28 +1,33 @@
-import { LOGIN, REGISTER, SIGN_OUT, FETCH_USER_DATA, AuthActionTypes } from "./auth_actions";
+import { IAuthAction, AuthActionTypes } from "./auth_actions";
+import { Reducer } from "redux";
+import IAuthState from "./auth_state";
 
 const initialState = {
-  allIds: [],
-  byIds: {}
-};
+  isAuth: false
+} as IAuthState;
 
-export default (state = initialState, action: AuthActionTypes) => {
+export const AuthReducer: Reducer<IAuthState, IAuthAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
-    case LOGIN: {
+    case AuthActionTypes.LOGIN_START:
+    case AuthActionTypes.REGISTER_START: {
       return {
         ...state
       };
     }
-    case REGISTER: {
+    case AuthActionTypes.REGISTER_SUCCESS: {
       return {
         ...state
       };
     }
-    case SIGN_OUT: {
+    case AuthActionTypes.SIGN_OUT_START: {
       return {
         ...state
       };
     }
-    case FETCH_USER_DATA: {
+    case AuthActionTypes.FETCH_USER_DATA_START: {
       return {
         ...state
       };

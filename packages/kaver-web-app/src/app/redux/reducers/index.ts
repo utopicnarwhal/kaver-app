@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import authReducer from "./auth/auth_reducer";
+import { AuthReducer } from "./auth/auth_reducer";
+import { IAppState } from "../store";
 
-export default combineReducers({ authReducer });
+export default combineReducers<IAppState>({ authState: AuthReducer });

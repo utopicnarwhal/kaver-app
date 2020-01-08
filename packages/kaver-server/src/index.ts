@@ -46,8 +46,14 @@ async function bootstrap() {
 
   server.use(cookieParser());
 
+  server.options.cors = {
+    credentials: true,
+    origin: process.env.FRONTEND_URL
+  };
+
   server.start((options) => {
     options.port = port;
+
     console.log(`Server is running on http://localhost:${port}`);
   });
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactNode, Fragment, useState, useEffect } from "react";
+import { memo, ReactNode, useState, useEffect } from "react";
 import "./Page-view.css";
 import { BackgroundWave } from "../decor/Background-wave";
 
@@ -10,6 +10,7 @@ interface IProps {
 }
 
 export const PageView = memo<IProps>(({ pageViewNum = 0, page1, page2 }) => {
+    const [isInTransition, setIsInTransition] = useState(false);
     const [currentPageViewNum, setCurrentPageViewNum] = useState(0);
 
     let page1className = "Page";
@@ -21,25 +22,31 @@ export const PageView = memo<IProps>(({ pageViewNum = 0, page1, page2 }) => {
         page1className += " Page-left";
         page2className += " Page-center";
     }
-    if (currentPageViewNum !== pageViewNum) {
+    if (isInTransition) {
         page1className += " Page-in-transition";
         page2className += " Page-in-transition";
     }
 
     useEffect(() => {
         if (pageViewNum !== currentPageViewNum) {
+            if (!isInTransition) {
+                setIsInTransition(true);
+            }
             const transitionTimer = setTimeout(() => {
                 setCurrentPageViewNum(pageViewNum);
-            }, 1500);
+                if (isInTransition) {
+                    setIsInTransition(false);
+                }
+            }, 1000);
             return () => {
                 clearTimeout(transitionTimer);
             };
         }
         return;
-    }, [currentPageViewNum, pageViewNum]);
+    }, [currentPageViewNum, pageViewNum, isInTransition]);
 
     return (
-        <Fragment>
+        <>
             <div className={page1className}>
                 <BackgroundWave></BackgroundWave>
                 {page1}
@@ -48,6 +55,6 @@ export const PageView = memo<IProps>(({ pageViewNum = 0, page1, page2 }) => {
                 <BackgroundWave></BackgroundWave>
                 {page2}
             </div>
-        </Fragment>
+        </>
     );
 });

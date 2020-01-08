@@ -4,12 +4,12 @@ import { useWindowSize } from "../../hooks/hooks";
 import { useTheme } from "@material-ui/core";
 
 export const BackgroundWave = React.memo(() => {
-    const [screenWidth] = useWindowSize();
+    const [screenWidth, screenHeight] = useWindowSize();
     const waveCount = Math.round(screenWidth / 192);
     let generatedWaveSvgPath = "";
 
     const dx = 100 / waveCount;
-    const yMin = 47;
+    const yMin = 50 - (33 / screenHeight * 100);
 
     for (let i = 0; i < waveCount; ++i) {
         const stepDx = dx * i;

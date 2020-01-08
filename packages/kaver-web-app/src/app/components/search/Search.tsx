@@ -81,7 +81,7 @@ export const Search = memo<ISearchComponentProps>((props) => {
 
     const handleSearchBlockClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
-        if (searchInputRef.current != null) {
+        if (searchInputRef.current) {
             searchInputRef.current.focus();
         }
     };
