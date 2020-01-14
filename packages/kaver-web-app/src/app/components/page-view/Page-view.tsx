@@ -10,8 +10,8 @@ interface IProps {
 }
 
 export const PageView = memo<IProps>(({ pageViewNum = 0, page1, page2 }) => {
-    const [isInTransition, setIsInTransition] = useState(false);
     const [currentPageViewNum, setCurrentPageViewNum] = useState(0);
+    const [isInTransition, setIsInTransition] = useState(pageViewNum !== currentPageViewNum);
 
     let page1className = "Page";
     let page2className = "Page";

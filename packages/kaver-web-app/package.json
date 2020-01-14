@@ -25,7 +25,8 @@
     "react-toasts": "^3.0.6",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "use-debounce": "^3.3.0"
   },
   "devDependencies": {
     "@types/jest": "24.0.24",

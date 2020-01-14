@@ -2,11 +2,12 @@ import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "@material-ui/core";
-import React, { useState, useRef, useEffect, useReducer, memo } from "react";
+import React, { useRef, useEffect, useReducer, memo, useState } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
 import { RandomData, RandomData_getRandomSongs } from "../../models/generated/RandomData";
 import { HorizontalDirection } from "../../models/enums/directions";
+import { useDebounce } from "use-debounce";
 
 const kDelayBeforeTypeRandomData = 1000;
 const kDelayBeforeDeleteRandomData = 2000;
@@ -68,16 +69,29 @@ function placeholderReducer(state: IPlaceholderState, action: IPlaceholderAction
 }
 
 interface ISearchComponentProps {
-    onSearchTextChange: (searchText: string) => void;
+    onSearch: (searchText: string) => void;
+    searchText: string;
 }
 
 export const Search = memo<ISearchComponentProps>((props) => {
     const { data: randomData } = useQuery<RandomData>(RANDOM_DATA_QUERY, { suspend: false });
-    const [searchText, setSearchText] = useState("");
+
     const [placeholderState, placeholderDispatch] = useReducer(placeholderReducer, placeholderInitialState);
 
     const searchInputRef = useRef<HTMLInputElement>(null);
     const searchFormRef = useRef<HTMLFormElement>(null);
+
+    const [searchFieldText, setSearchFieldText] = useState("");
+
+    const [debouncedSearchText] = useDebounce(searchFieldText, 1000);
+
+    useEffect(() => {
+        if (searchFieldText === "") {
+            props.onSearch(searchFieldText);
+        } else if (debouncedSearchText?.length > 0) {
+            props.onSearch(debouncedSearchText);
+        }
+    }, [searchFieldText, props, debouncedSearchText]);
 
     const handleSearchBlockClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
@@ -87,12 +101,12 @@ export const Search = memo<ISearchComponentProps>((props) => {
     };
 
     useEffect(() => {
-        if (searchText.length !== 0 || !randomData) {
+        if (props.searchText.length !== 0 || !randomData) {
             placeholderDispatch({ randomSongs: null });
             return;
         }
 
-        if (randomData.getRandomSongs && searchText.length === 0) {
+        if (randomData.getRandomSongs && props.searchText.length === 0) {
             const randomSongs = randomData.getRandomSongs;
 
             let delay = kDelayTypingRandomData;
@@ -116,16 +130,15 @@ export const Search = memo<ISearchComponentProps>((props) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(searchText);
+        props.onSearch(searchFieldText);
     };
 
     const handleSearchIconClick = () => {
-        console.log(searchText);
+        props.onSearch(searchFieldText);
     };
 
     const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.onSearchTextChange(event.target.value);
-        setSearchText(event.target.value);
+        setSearchFieldText(event.target.value);
     };
 
     return (

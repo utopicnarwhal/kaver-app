@@ -17,8 +17,10 @@ type Query {
   getSingerByName(name: String!): Singer
   getRandomSingers(size: Float = 10): [Singer!]
   getSingerSongsByName(name: String!): [Song!]
+  searchByTitleSubstring(page: Float!, substring: String!): [Song!]
   getSongById(id: String!): Song
   getRandomSongs(size: Float = 10): [Song!]
+  singer: Singer
   favoriteSongs: [Song!]
   kaveredSongs: [Song!]
 }
@@ -34,6 +36,7 @@ type Song {
   title: String!
   href: String!
   singerId: ObjectId!
+  singer: Singer!
   chordsAndText: String!
 }
 

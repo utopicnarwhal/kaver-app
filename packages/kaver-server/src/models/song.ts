@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { modelOptions, prop, getModelForClass } from "@typegoose/typegoose";
 import { Field, ObjectType } from "type-graphql";
+import { Singer } from "./singer";
 
 @ObjectType()
 @modelOptions({ schemaOptions: { collection: "songs" } })
@@ -20,6 +21,9 @@ export class Song {
     @Field()
     @prop()
     public singerId?: ObjectId;
+
+    @Field()
+    public singer?: Singer;
 
     @Field()
     @prop()
