@@ -82,16 +82,15 @@ export const Search = memo<ISearchComponentProps>((props) => {
     const searchFormRef = useRef<HTMLFormElement>(null);
 
     const [searchFieldText, setSearchFieldText] = useState("");
-
+    const [currentSearchingText, setCurrentSearchingText] = useState("");
     const [debouncedSearchText] = useDebounce(searchFieldText, 1000);
 
     useEffect(() => {
-        if (searchFieldText === "") {
-            props.onSearch(searchFieldText);
-        } else if (debouncedSearchText?.length > 0) {
+        if (debouncedSearchText !== currentSearchingText) {
+            setCurrentSearchingText(debouncedSearchText);
             props.onSearch(debouncedSearchText);
         }
-    }, [searchFieldText, props, debouncedSearchText]);
+    }, [searchFieldText, props, debouncedSearchText, currentSearchingText]);
 
     const handleSearchBlockClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();

@@ -5,7 +5,7 @@ import { ObjectType, Field } from "type-graphql";
 @ObjectType()
 @modelOptions({ schemaOptions: { collection: "singers" } })
 export class Singer {
-    @Field()
+    @Field({ nullable: true })
     // tslint:disable-next-line: variable-name
     public _id?: ObjectId;
 

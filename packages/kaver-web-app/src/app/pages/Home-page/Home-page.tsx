@@ -7,15 +7,19 @@ import { Search } from "../../components/search/Search";
 import MainView from "./views/main-view/Main-view";
 import SearchResultsView from "./views/search-results-view/Search-results-view";
 import { connect } from "react-redux";
-import { IAppState } from "../../redux/store";
 import { mainSearch } from "../../redux/reducers/main-search/main_search_actions_creators";
 
-function HomePage() {
+interface IProps {
+  mainSearch: (searchText: string) => void;
+}
+
+function HomePage(props: IProps) {
   const [pageViewNum, setPageViewNum] = useState(0);
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = (newSearchText: string) => {
     setSearchText(newSearchText);
+    props.mainSearch(newSearchText);
     if (newSearchText.length > 0 && pageViewNum !== 1) {
       setPageViewNum(1);
     } else if (newSearchText.length === 0 && pageViewNum !== 0) {
@@ -45,19 +49,11 @@ function HomePage() {
   );
 }
 
-// Make data available on props
-const mapStateToProps = (store: IAppState) => {
-    return {
-        isAuth: store.authState.isAuth,
-        isFetching: store.authState.isFetching,
-    };
-};
-
 // Make functions available on props
 const mapDispatchToProps = (dispatch: any) => {
-    return {
-      mainSearch: (username: string, page: number) => dispatch(mainSearch(username, page)),
-    };
+  return {
+    mainSearch: (searchText: string) => dispatch(mainSearch(searchText)),
+  } as IProps;
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(null, mapDispatchToProps)(HomePage);

@@ -6,7 +6,7 @@ import { Singer } from "./singer";
 @ObjectType()
 @modelOptions({ schemaOptions: { collection: "songs" } })
 export class Song {
-    @Field()
+    @Field({ nullable: true })
     // tslint:disable-next-line: variable-name
     public _id?: ObjectId;
 
@@ -18,14 +18,14 @@ export class Song {
     @prop()
     public href: string;
 
-    @Field()
+    @Field({ nullable: true })
     @prop()
     public singerId?: ObjectId;
 
-    @Field()
+    @Field(() => Singer, { nullable: true })
     public singer?: Singer;
 
-    @Field()
+    @Field({ nullable: true })
     @prop()
     public chordsAndText?: string;
 }

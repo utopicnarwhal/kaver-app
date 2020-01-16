@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, ReactNode, useState, useEffect } from "react";
+import { memo, ReactNode, useEffect, useReducer } from "react";
 import "./Page-view.css";
 import { BackgroundWave } from "../decor/Background-wave";
 
@@ -9,41 +9,67 @@ interface IProps {
     page2?: ReactNode;
 }
 
+interface IPageViewState {
+    toPage: number;
+    fromPage: number;
+}
+
+interface IPageViewAction {
+    moveTo?: number;
+}
+
+const initialState: IPageViewState = {
+    toPage: 0,
+    fromPage: 0
+};
+
+const reducer = (state: IPageViewState, action: IPageViewAction) => {
+    const newState = { ...state };
+
+    if (action.moveTo == null) {
+        newState.fromPage = newState.toPage;
+    } else {
+        newState.toPage = action.moveTo;
+    }
+
+    return newState;
+};
+
 export const PageView = memo<IProps>(({ pageViewNum = 0, page1, page2 }) => {
-    const [currentPageViewNum, setCurrentPageViewNum] = useState(0);
-    const [isInTransition, setIsInTransition] = useState(pageViewNum !== currentPageViewNum);
+    const [pageViewState, pageViewDispatch] = useReducer(reducer, initialState);
 
     let page1className = "Page";
     let page2className = "Page";
-    if (pageViewNum === 0) {
+    if (pageViewState.toPage === 0) {
         page1className += " Page-center";
         page2className += " Page-right";
     } else {
         page1className += " Page-left";
         page2className += " Page-center";
     }
-    if (isInTransition) {
+    if (pageViewState.toPage !== pageViewState.fromPage) {
         page1className += " Page-in-transition";
         page2className += " Page-in-transition";
     }
 
     useEffect(() => {
-        if (pageViewNum !== currentPageViewNum) {
-            if (!isInTransition) {
-                setIsInTransition(true);
+        if (pageViewNum !== pageViewState.toPage) {
+            if (pageViewNum === pageViewState.fromPage) {
+                pageViewDispatch({});
             }
+            pageViewDispatch({ moveTo: pageViewNum });
+        }
+
+        if (pageViewState.toPage !== pageViewState.fromPage) {
             const transitionTimer = setTimeout(() => {
-                setCurrentPageViewNum(pageViewNum);
-                if (isInTransition) {
-                    setIsInTransition(false);
-                }
+                pageViewDispatch({});
             }, 1000);
             return () => {
                 clearTimeout(transitionTimer);
             };
         }
         return;
-    }, [currentPageViewNum, pageViewNum, isInTransition]);
+    });
 
     return (
         <>

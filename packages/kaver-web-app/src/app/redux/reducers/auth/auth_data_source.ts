@@ -1,5 +1,7 @@
 import ApiClient from "../../../services/api_client";
 import gql from "graphql-tag";
+import { LoginVariables, Login } from "../../../models/generated/Login";
+import { RegisterVariables, Register } from "../../../models/generated/Register";
 
 const LOGIN_QUERY = gql`
   query Login($username: String!, $password: String!){
@@ -11,7 +13,7 @@ const LOGIN_QUERY = gql`
 `;
 
 const REGISTER_MUTATION = gql`
-  query Register($username: String!, $password: String!, $lastname: String!, $firstname: String!){
+  mutation Register($username: String!, $password: String!, $lastname: String!, $firstname: String!){
     register(username: $username, password: $password, lastname: $lastname, firstname: $firstname) {
       firstname
       lastname
@@ -20,22 +22,23 @@ const REGISTER_MUTATION = gql`
 `;
 
 const SIGN_OUT_QUERY = gql`
-  query SignOut {
-    signOut
+  mutation SignOut {
+    invalidateTokens
   }
 `;
 
 const FETCH_USER_DATA_QUERY = gql`
-query Me {
-  me {
-    firstname
-    lastname
+  query Me {
+    me {
+      firstname
+      lastname
+    }
   }
-}`;
+`;
 
 export default class AuthDataSource {
   public static async login(username: string, password: string) {
-    const result = await ApiClient.getInstance().query({
+    const result = await ApiClient.getInstance().query<Login, LoginVariables>({
       query: LOGIN_QUERY,
       variables: {
         username,
@@ -47,7 +50,7 @@ export default class AuthDataSource {
   }
 
   public static async register(username: string, password: string, firstname: string, lastname: string) {
-    const result = await ApiClient.getInstance().mutate({
+    const result = await ApiClient.getInstance().mutate<Register, RegisterVariables>({
       mutation: REGISTER_MUTATION,
       variables: {
         username,
@@ -57,7 +60,7 @@ export default class AuthDataSource {
       },
     });
 
-    return result?.data?.login;
+    return result?.data?.register;
   }
 
   public static async signOut() {

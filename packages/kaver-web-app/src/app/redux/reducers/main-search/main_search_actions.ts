@@ -1,55 +1,42 @@
+import { MainSearch_searchSongByTitleSubstring, MainSearch_searchSingerByTitleSubstring } from "../../../models/generated/MainSearch";
+
 export enum MainSearchActionTypes {
-  SEARCH_START = "SEARCH_START",
-  SEARCH_SUCCESS = "SEARCH_SUCCESS",
-  SEARCH_FAILURE = "SEARCH_FAILURE",
+  SONGS_START = "START",
+  SONGS_SUCCESS = "SUCCESS",
+  SONGS_FAILURE = "FAILURE",
 
-  UPLOAD_MORE_SONGS_START = "UPLOAD_MORE_START",
-  UPLOAD_MORE_SONGS_SUCCESS = "UPLOAD_MORE_SUCCESS",
-  UPLOAD_MORE_SONGS_FAILURE = "UPLOAD_MORE_FAILURE",
-
-  UPLOAD_MORE_SINGERS_START = "UPLOAD_MORE_SINGERS_START",
-  UPLOAD_MORE_SINGERS_SUCCESS = "UPLOAD_MORE_SINGERS_SUCCESS",
-  UPLOAD_MORE_SINGERS_FAILURE = "UPLOAD_MORE_SINGERS_FAILURE",
+  SINGERS_START = "SINGERS_START",
+  SINGERS_SUCCESS = "SINGERS_SUCCESS",
+  SINGERS_FAILURE = "SINGERS_FAILURE",
 
   CLEAR_DATA = "CLEAR_DATA",
 }
 
-export interface IMainSearchStartAction {
-  type: typeof MainSearchActionTypes.SEARCH_START;
+export interface IMainSearchSongsStartAction {
+  type: typeof MainSearchActionTypes.SONGS_START;
 }
 
-export interface IMainSearchSuccessAction {
-  type: typeof MainSearchActionTypes.SEARCH_SUCCESS;
+export interface IMainSearchSongsSuccessAction {
+  type: typeof MainSearchActionTypes.SONGS_SUCCESS;
+  data: MainSearch_searchSongByTitleSubstring[] | null;
 }
 
-export interface IMainSearchFailureAction {
-  type: typeof MainSearchActionTypes.SEARCH_FAILURE;
+export interface IMainSearchSongsFailureAction {
+  type: typeof MainSearchActionTypes.SONGS_FAILURE;
   message: string;
 }
 
-export interface IMainSearchUploadMoreSongsStartAction {
-  type: typeof MainSearchActionTypes.UPLOAD_MORE_SONGS_START;
+export interface IMainSearchSingersStartAction {
+  type: typeof MainSearchActionTypes.SINGERS_START;
 }
 
-export interface IMainSearchUploadMoreSongsSuccessAction {
-  type: typeof MainSearchActionTypes.UPLOAD_MORE_SONGS_SUCCESS;
+export interface IMainSearchSingersSuccessAction {
+  type: typeof MainSearchActionTypes.SINGERS_SUCCESS;
+  data: MainSearch_searchSingerByTitleSubstring[] | null;
 }
 
-export interface IMainSearchUploadMoreSongsFailureAction {
-  type: typeof MainSearchActionTypes.UPLOAD_MORE_SONGS_FAILURE;
-  message: string;
-}
-
-export interface IMainSearchUploadMoreSingersStartAction {
-  type: typeof MainSearchActionTypes.UPLOAD_MORE_SINGERS_START;
-}
-
-export interface IMainSearchUploadMoreSingersSuccessAction {
-  type: typeof MainSearchActionTypes.UPLOAD_MORE_SINGERS_SUCCESS;
-}
-
-export interface IMainSearchUploadMoreSingersFailureAction {
-  type: typeof MainSearchActionTypes.UPLOAD_MORE_SINGERS_FAILURE;
+export interface IMainSearchSingersFailureAction {
+  type: typeof MainSearchActionTypes.SINGERS_FAILURE;
   message: string;
 }
 
@@ -58,13 +45,10 @@ export interface IMainSearchClearDataAction {
 }
 
 export type IMainSearchAction =
-  | IMainSearchStartAction
-  | IMainSearchSuccessAction
-  | IMainSearchFailureAction
-  | IMainSearchUploadMoreSongsStartAction
-  | IMainSearchUploadMoreSongsSuccessAction
-  | IMainSearchUploadMoreSongsFailureAction
-  | IMainSearchUploadMoreSingersStartAction
-  | IMainSearchUploadMoreSingersSuccessAction
-  | IMainSearchUploadMoreSingersFailureAction
+  | IMainSearchSongsStartAction
+  | IMainSearchSongsSuccessAction
+  | IMainSearchSongsFailureAction
+  | IMainSearchSingersStartAction
+  | IMainSearchSingersSuccessAction
+  | IMainSearchSingersFailureAction
   | IMainSearchClearDataAction;

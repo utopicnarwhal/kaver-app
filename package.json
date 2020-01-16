@@ -13,6 +13,8 @@
   "scripts": {
     "build": "lerna run build",
     "dev": "lerna run dev --stream",
+    "generate": "lerna run generate --stream",
+    "schema:download": "lerna run schema:download --stream",
     "update:version": "lerna version --no-push"
   },
   "devDependencies": {

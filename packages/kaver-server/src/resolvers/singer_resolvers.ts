@@ -24,7 +24,7 @@ export default class SingerResolver {
     }
 
     @Query(() => [Singer], { nullable: true })
-    public async searchByTitleSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Singer[] | null> {
+    public async searchSingerByTitleSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Singer[] | null> {
         return (await SingerCollection.find({ title: new RegExp(substring, "i") }, null, { limit: 50, skip: page * 50 }));
     }
 }

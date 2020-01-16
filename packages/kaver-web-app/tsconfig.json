@@ -20,6 +20,10 @@
     "isolatedModules": true
   },
   "include": [
-    "src", "src/content"
+    "src",
+    "src/content"
+  ],
+  "exclude": [
+    "src/app/models/generated/globalTypes.ts"
   ]
 }

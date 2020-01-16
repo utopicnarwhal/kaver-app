@@ -16,12 +16,15 @@ export default class SongResolver {
 
     @FieldResolver()
     @Query(() => Singer, { nullable: true })
-    public async singer(@Root("song") rootSong: Song) {
-        return (await SingerCollection.findById(rootSong.singerId));
+    public async singer(@Root() rootSong: Song): Promise<Singer | null> {
+        if (rootSong == null) {
+            return null;
+        }
+        return (await SingerCollection.findById(rootSong?.singerId));
     }
 
     @Query(() => [Song], { nullable: true })
-    public async searchByTitleSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Song[] | null> {
+    public async searchSongByTitleSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Song[] | null> {
         return (await SongCollection.find({ title: new RegExp(substring, "i") }, null, { limit: 50, skip: page * 50 }));
     }
 }

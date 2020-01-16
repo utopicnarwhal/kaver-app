@@ -1,4 +1,7 @@
+import { MainSearch } from "../../../models/generated/MainSearch";
+
 export default interface IMainSearchState {
-    isFetching: boolean;
-    searchResults: any;
+    isSongsFetching: boolean;
+    isSingersFetching: boolean;
+    searchResults?: MainSearch;
 }

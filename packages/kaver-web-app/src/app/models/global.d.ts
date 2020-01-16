@@ -1,0 +1,1 @@
+type KaverObjectId = string;

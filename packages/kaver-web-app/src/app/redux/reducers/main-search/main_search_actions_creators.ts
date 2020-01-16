@@ -6,29 +6,61 @@ import { ThunkAction } from "redux-thunk";
 import {
   MainSearchActionTypes,
   IMainSearchAction,
-  IMainSearchStartAction,
-  IMainSearchSuccessAction,
-  IMainSearchFailureAction
+  IMainSearchSongsStartAction,
+  IMainSearchSongsFailureAction,
+  IMainSearchSongsSuccessAction,
+  IMainSearchSingersStartAction,
+  IMainSearchSingersSuccessAction,
+  IMainSearchSingersFailureAction,
+  IMainSearchClearDataAction,
 } from "./main_search_actions";
 import IMainSearchState from "./main_search_state";
 import MainSearchDataSource from "./main_search_data_source";
+import { MainSearch_searchSingerByTitleSubstring, MainSearch_searchSongByTitleSubstring } from "../../../models/generated/MainSearch";
 
-export const mainSearchStart = (): IMainSearchStartAction => {
+export const mainSearchSongsStart = (): IMainSearchSongsStartAction => {
   return {
-    type: MainSearchActionTypes.SEARCH_START
+    type: MainSearchActionTypes.SONGS_START
   };
 };
 
-export const mainSearchSuccess = (): IMainSearchSuccessAction => {
+export const mainSearchSongsSuccess = (songData: MainSearch_searchSongByTitleSubstring[] | null): IMainSearchSongsSuccessAction => {
   return {
-    type: MainSearchActionTypes.SEARCH_SUCCESS
+    type: MainSearchActionTypes.SONGS_SUCCESS,
+    data: songData
   };
 };
 
-export const mainSearchFailure = (message: string): IMainSearchFailureAction => {
+export const mainSearchSongsFailure = (message: string): IMainSearchSongsFailureAction => {
   return {
-    type: MainSearchActionTypes.SEARCH_FAILURE,
+    type: MainSearchActionTypes.SONGS_FAILURE,
     message
+  };
+};
+
+export const mainSearchSingersStart = (): IMainSearchSingersStartAction => {
+  return {
+    type: MainSearchActionTypes.SINGERS_START
+  };
+};
+
+export const mainSearchSingersSuccess = (singersData: MainSearch_searchSingerByTitleSubstring[] | null): IMainSearchSingersSuccessAction => {
+  return {
+    type: MainSearchActionTypes.SINGERS_SUCCESS,
+    data: singersData
+  };
+};
+
+export const mainSearchSingersFailure = (message: string): IMainSearchSingersFailureAction => {
+  return {
+    type: MainSearchActionTypes.SINGERS_FAILURE,
+    message
+  };
+};
+
+export const mainSearchClearData = (): IMainSearchClearDataAction => {
+  return {
+    type: MainSearchActionTypes.CLEAR_DATA
   };
 };
 
@@ -38,18 +70,25 @@ export const mainSearch: ActionCreator<ThunkAction<
   IMainSearchState,
   null,
   IMainSearchAction
->> = (username: string, password) => {
+>> = (searchString: string) => {
   return async (dispatch: Dispatch) => {
-    dispatch(mainSearchStart());
+    if (searchString === "") {
+      dispatch(mainSearchClearData());
+      return;
+    }
+    dispatch(mainSearchSongsStart());
+    dispatch(mainSearchSingersStart());
 
-    return MainSearchDataSource.login(username, password)
+    console.log(searchString);
+    return MainSearchDataSource.mainSearch(searchString)
       .then((response) => {
         console.log(response);
-        dispatch(mainSearchSuccess());
+        dispatch(mainSearchSongsSuccess(response.data.searchSongByTitleSubstring));
+        dispatch(mainSearchSingersSuccess(response.data.searchSingerByTitleSubstring));
       })
       .catch((error) => {
         console.log(error);
-        dispatch(mainSearchFailure(error?.toString()));
+        dispatch(mainSearchSongsFailure(error?.toString()));
       });
   };
 };
