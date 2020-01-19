@@ -160,7 +160,7 @@
             "deprecationReason": null
           },
           {
-            "name": "searchSingerByTitleSubstring",
+            "name": "searchSingerByNameSubstring",
             "description": null,
             "args": [
               {
@@ -542,13 +542,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ObjectId",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "ObjectId",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -590,13 +586,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ObjectId",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "ObjectId",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -606,13 +598,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Singer",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "Singer",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -622,13 +610,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -649,13 +633,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ObjectId",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "ObjectId",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

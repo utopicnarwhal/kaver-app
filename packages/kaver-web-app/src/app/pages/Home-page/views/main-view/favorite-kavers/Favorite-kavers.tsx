@@ -1,10 +1,9 @@
 import React from "react";
 import "./Favorite-kavers.css";
+import { HalfPageBlock } from "../../../../../components/half-page-block/Half-page-block";
 
 export default function FavoriteKavers() {
     return (
-        <div className="Favorites-block">
-            <h1>Понравившееся:</h1>
-        </div>
+        <HalfPageBlock title={"Мои каверы"} child={<div></div>}></HalfPageBlock>
     );
 }

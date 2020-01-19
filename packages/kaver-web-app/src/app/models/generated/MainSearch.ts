@@ -6,17 +6,17 @@
 // GraphQL query operation: MainSearch
 // ====================================================
 
-export interface MainSearch_searchSingerByTitleSubstring {
+export interface MainSearch_searchSingerByNameSubstring {
   __typename: "Singer";
   href: string;
   name: string;
-  _id: KaverObjectId;
+  _id: KaverObjectId | null;
 }
 
 export interface MainSearch_searchSongByTitleSubstring_singer {
   __typename: "Singer";
   name: string;
-  _id: KaverObjectId;
+  _id: KaverObjectId | null;
   href: string;
 }
 
@@ -24,13 +24,13 @@ export interface MainSearch_searchSongByTitleSubstring {
   __typename: "Song";
   href: string;
   title: string;
-  _id: KaverObjectId;
-  singer: MainSearch_searchSongByTitleSubstring_singer;
-  chordsAndText: string;
+  _id: KaverObjectId | null;
+  singer: MainSearch_searchSongByTitleSubstring_singer | null;
+  chordsAndText: string | null;
 }
 
 export interface MainSearch {
-  searchSingerByTitleSubstring: MainSearch_searchSingerByTitleSubstring[] | null;
+  searchSingerByNameSubstring: MainSearch_searchSingerByNameSubstring[] | null;
   searchSongByTitleSubstring: MainSearch_searchSongByTitleSubstring[] | null;
 }
 

@@ -16,7 +16,7 @@ import {
 } from "./main_search_actions";
 import IMainSearchState from "./main_search_state";
 import MainSearchDataSource from "./main_search_data_source";
-import { MainSearch_searchSingerByTitleSubstring, MainSearch_searchSongByTitleSubstring } from "../../../models/generated/MainSearch";
+import { MainSearch_searchSongByTitleSubstring, MainSearch_searchSingerByNameSubstring } from "../../../models/generated/MainSearch";
 
 export const mainSearchSongsStart = (): IMainSearchSongsStartAction => {
   return {
@@ -44,7 +44,7 @@ export const mainSearchSingersStart = (): IMainSearchSingersStartAction => {
   };
 };
 
-export const mainSearchSingersSuccess = (singersData: MainSearch_searchSingerByTitleSubstring[] | null): IMainSearchSingersSuccessAction => {
+export const mainSearchSingersSuccess = (singersData: MainSearch_searchSingerByNameSubstring[] | null): IMainSearchSingersSuccessAction => {
   return {
     type: MainSearchActionTypes.SINGERS_SUCCESS,
     data: singersData
@@ -84,7 +84,7 @@ export const mainSearch: ActionCreator<ThunkAction<
       .then((response) => {
         console.log(response);
         dispatch(mainSearchSongsSuccess(response.data.searchSongByTitleSubstring));
-        dispatch(mainSearchSingersSuccess(response.data.searchSingerByTitleSubstring));
+        dispatch(mainSearchSingersSuccess(response.data.searchSingerByNameSubstring));
       })
       .catch((error) => {
         console.log(error);

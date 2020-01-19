@@ -14,10 +14,11 @@ scalar ObjectId
 type Query {
   login(password: String!, username: String!): User
   me: User
+  getSingerById(id: String!): Singer
   getSingerByName(name: String!): Singer
   getRandomSingers(size: Float = 10): [Singer!]
   getSingerSongsByName(name: String!): [Song!]
-  searchSingerByTitleSubstring(page: Float!, substring: String!): [Singer!]
+  searchSingerByNameSubstring(page: Float!, substring: String!): [Singer!]
   getSongById(id: String!): Song
   getRandomSongs(size: Float = 10): [Song!]
   singer: Singer

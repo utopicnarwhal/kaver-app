@@ -25,6 +25,6 @@ export default class SongResolver {
 
     @Query(() => [Song], { nullable: true })
     public async searchSongByTitleSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Song[] | null> {
-        return (await SongCollection.find({ title: new RegExp(substring, "i") }, null, { limit: 50, skip: page * 50 }));
+        return (await SongCollection.find({ title: new RegExp(`^.+ - .+${substring}.+$`, "i") }, null, { limit: 50, skip: page * 20 }));
     }
 }

@@ -1,0 +1,11 @@
+.Half-page-block {
+    height: 50vh;
+    width: 100%;
+    padding: 20px;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.Half-page-block .Content {
+    overflow: auto;
+}

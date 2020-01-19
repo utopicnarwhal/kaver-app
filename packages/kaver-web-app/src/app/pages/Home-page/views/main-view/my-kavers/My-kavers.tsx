@@ -1,18 +1,16 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import "./My-kavers.css";
+import { HalfPageBlock } from "../../../../../components/half-page-block/Half-page-block";
 
-export default function MyKavers() {
+export default () => {
     return (
-        <div className="My-kavers-block">
-            <h1>Мои каверы:</h1>
-            <Card variant="outlined">
-                <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
-                        Александра Негрескул
-                    </Typography>
-                </CardContent>
-            </Card>
-        </div>
+        <HalfPageBlock title={"Мои каверы"} child={<Card variant="outlined">
+            <CardContent>
+                <Typography color="textSecondary" gutterBottom>
+                    Александра Негрескул
+                </Typography>
+            </CardContent>
+        </Card>}></HalfPageBlock>
     );
-}
+};

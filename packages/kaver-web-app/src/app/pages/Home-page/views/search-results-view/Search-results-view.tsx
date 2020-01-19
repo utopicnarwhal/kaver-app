@@ -3,6 +3,7 @@ import { MainSearch } from "../../../../models/generated/MainSearch";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { IAppState } from "../../../../redux/store";
 import { connect } from "react-redux";
+import { HalfPageBlock } from "../../../../components/half-page-block/Half-page-block";
 
 interface IProps {
     searchResults?: MainSearch;
@@ -13,30 +14,24 @@ interface IProps {
 function SearchResultsView(props: IProps) {
     return (
         <>
-            <div>
-                Найденные авторы
-                {props.searchResults?.searchSingerByTitleSubstring?.map((value) => {
-                    return <Card variant="outlined">
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                                {value.name}
-                            </Typography>
-                        </CardContent>
-                    </Card>;
-                })}
-            </div>
-            <div>
-                Найденные песни
-                {props.searchResults?.searchSongByTitleSubstring?.map((value) => {
-                    return <Card variant="outlined">
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                                {value.title}
-                            </Typography>
-                        </CardContent>
-                    </Card>;
-                })}
-            </div>
+            <HalfPageBlock title={"Найденные авторы"} child={props.searchResults?.searchSingerByNameSubstring?.map((value, index) => {
+                return <Card variant="outlined" key={value._id ?? index}>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>
+                            {value.name}
+                        </Typography>
+                    </CardContent>
+                </Card>;
+            })} />
+            <HalfPageBlock title={"Найденные песни"} child={props.searchResults?.searchSongByTitleSubstring?.map((value, index) => {
+                return <Card variant="outlined" key={value._id ?? index}>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>
+                            {value.title}
+                        </Typography>
+                    </CardContent>
+                </Card>;
+            })} />
         </>
     );
 }

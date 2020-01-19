@@ -23,7 +23,7 @@ export const MainSearchReducer: Reducer<IMainSearchState, IMainSearchAction> = (
       newState.isSongsFetching = false;
       if (newState.searchResults == null) {
         newState.searchResults = {
-          searchSingerByTitleSubstring: [],
+          searchSingerByNameSubstring: [],
           searchSongByTitleSubstring: action.data
         } as MainSearch;
       } else {
@@ -46,14 +46,14 @@ export const MainSearchReducer: Reducer<IMainSearchState, IMainSearchAction> = (
       newState.isSingersFetching = false;
       if (newState.searchResults == null) {
         newState.searchResults = {
-          searchSingerByTitleSubstring: action.data,
+          searchSingerByNameSubstring: action.data,
           searchSongByTitleSubstring: []
         } as MainSearch;
       } else {
-        newState.searchResults.searchSingerByTitleSubstring = action.data;
+        newState.searchResults.searchSingerByNameSubstring = action.data;
       }
       if (newState.searchResults != null) {
-        newState.searchResults.searchSingerByTitleSubstring = action.data;
+        newState.searchResults.searchSingerByNameSubstring = action.data;
       }
       return newState;
     }

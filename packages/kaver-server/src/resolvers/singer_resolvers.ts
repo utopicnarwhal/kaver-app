@@ -5,6 +5,11 @@ import SongCollection, { Song } from "../models/song";
 @Resolver()
 export default class SingerResolver {
     @Query(() => Singer, { nullable: true })
+    public async getSingerById(@Arg("id") id: string): Promise<Singer | null> {
+        return (await SingerCollection.findById(id));
+    }
+
+    @Query(() => Singer, { nullable: true })
     public async getSingerByName(@Arg("name") name: string): Promise<Singer | null> {
         return (await SingerCollection.findOne({ name }));
     }
@@ -24,7 +29,7 @@ export default class SingerResolver {
     }
 
     @Query(() => [Singer], { nullable: true })
-    public async searchSingerByTitleSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Singer[] | null> {
-        return (await SingerCollection.find({ title: new RegExp(substring, "i") }, null, { limit: 50, skip: page * 50 }));
+    public async searchSingerByNameSubstring(@Arg("substring") substring: string, @Arg("page") page: number = 0): Promise<Singer[] | null> {
+        return (await SingerCollection.find({ name: new RegExp(substring, "i") }, null, { limit: 50, skip: page * 20 }));
     }
 }

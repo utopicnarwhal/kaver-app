@@ -4,12 +4,12 @@ import { MainSearchVariables, MainSearch } from "../../../models/generated/MainS
 
 const MAIN_SEARCH_QUERY = gql`
   query MainSearch($searchString: String!) {
-    searchSingerByTitleSubstring(substring: $searchString, page: 1) {
+    searchSingerByNameSubstring(substring: $searchString, page: 0) {
       href
       name
       _id
     }
-    searchSongByTitleSubstring(substring: $searchString, page: 1) {
+    searchSongByTitleSubstring(substring: $searchString, page: 0) {
       href
       title
       _id

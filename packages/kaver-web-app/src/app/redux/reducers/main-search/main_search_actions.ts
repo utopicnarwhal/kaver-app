@@ -1,4 +1,4 @@
-import { MainSearch_searchSongByTitleSubstring, MainSearch_searchSingerByTitleSubstring } from "../../../models/generated/MainSearch";
+import { MainSearch_searchSongByTitleSubstring, MainSearch_searchSingerByNameSubstring } from "../../../models/generated/MainSearch";
 
 export enum MainSearchActionTypes {
   SONGS_START = "START",
@@ -32,7 +32,7 @@ export interface IMainSearchSingersStartAction {
 
 export interface IMainSearchSingersSuccessAction {
   type: typeof MainSearchActionTypes.SINGERS_SUCCESS;
-  data: MainSearch_searchSingerByTitleSubstring[] | null;
+  data: MainSearch_searchSingerByNameSubstring[] | null;
 }
 
 export interface IMainSearchSingersFailureAction {
