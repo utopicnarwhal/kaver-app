@@ -17,3 +17,8 @@
 .App-header .Login-block:hover {
     box-shadow: 0 2px 4px #000000aa;
 }
+
+.Auth-form {
+    display: flex;
+    flex-direction: column;
+}

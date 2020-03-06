@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
+        loginButton: {
+            margin: theme.spacing(1),
+        }
     }),
 );
 
@@ -75,10 +78,10 @@ function LoginButton(props: IProps) {
                 <Fade in={loginModalOpen}>
                     <div className={classes.paper}>
                         <h2 id="transition-modal-title">Авторизация</h2>
-                        <form onSubmit={handleLoginSubmit}>
-                            <TextField id="username" label="Логин" variant="outlined" onChange={handleUsernameFieldChange} />
-                            <TextField id="password" label="Пароль" variant="outlined" onChange={handlePasswordFieldChange} type="password" />
-                            <Button variant="contained" type="submit" color="primary">Войти</Button>
+                        <form onSubmit={handleLoginSubmit} className={"Auth-form"}>
+                            <TextField id="username" label="Логин" variant="outlined" onChange={handleUsernameFieldChange} margin={"normal"}/>
+                            <TextField id="password" label="Пароль" variant="outlined" onChange={handlePasswordFieldChange} margin={"normal"} type="password"/>
+                            <Button variant="contained" type="submit" color="primary" className={"loginButton"}>Войти</Button>
                         </form>
                     </div>
                 </Fade>

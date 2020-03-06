@@ -4,6 +4,7 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import { IAppState } from "../../../../redux/store";
 import { connect } from "react-redux";
 import { HalfPageBlock } from "../../../../components/half-page-block/Half-page-block";
+import "./Search-results-view.css";
 
 interface IProps {
     searchResults?: MainSearch;
@@ -15,7 +16,7 @@ function SearchResultsView(props: IProps) {
     return (
         <>
             <HalfPageBlock title={"Найденные авторы"} child={props.searchResults?.searchSingerByNameSubstring?.map((value, index) => {
-                return <Card variant="outlined" key={value._id ?? index}>
+                return <Card variant="outlined" key={value._id ?? index} className={"Search-result-card"}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>
                             {value.name}
@@ -24,7 +25,7 @@ function SearchResultsView(props: IProps) {
                 </Card>;
             })} />
             <HalfPageBlock title={"Найденные песни"} child={props.searchResults?.searchSongByTitleSubstring?.map((value, index) => {
-                return <Card variant="outlined" key={value._id ?? index}>
+                return <Card variant="outlined" key={value._id ?? index} className={"Search-result-card"}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>
                             {value.title}
